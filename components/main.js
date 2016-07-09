@@ -1,5 +1,8 @@
 // TODO: Fix last char bug
 // TODO: Fix UTCOffset(0) 
+// TODO: State doesn't persist properly in drop downs
+// TODO: Table width isn't fixed
+// TODO: Mobile responsiveness  
 
 var NavBar = React.createClass({
     render: function() {
@@ -41,17 +44,18 @@ var FilterableGymClassTable = React.createClass({
             filteredGym: '',
             filterText: '',
             filterDay: '',
+            filterDayBefore: '',
+            filterDayAfter: '',
             gymclass: [],
             url: "http://localhost:9000/?limit=100"
         };
     },
 
-
     getClasses: function(url) {
         fetch(url).then(
             _.throttle(function(response) { 
             return response.json();
-            }, 300)).then(function(res){
+            }, 500)).then(function(res){
                 this.filterResults(res)
             }.bind(this))
     },
@@ -70,7 +74,6 @@ var FilterableGymClassTable = React.createClass({
       this.serverRequest.abort();
     },
 
-   
     handleDayChange: function(e) {
         var before, after = "";
         switch (e.filterDay) {
@@ -87,13 +90,16 @@ var FilterableGymClassTable = React.createClass({
                 before = moment().add(1,'weeks').endOf('day').format("YYYY-MM-DDTHH:mm:ssZ");
                 break;
         }
+         this.setState({
+             filterDayAfter: after,
+             filterDayBefore: before
+         })
          var url = this.state.url + "&gym=" + this.state.filteredGym + "&name=" + this.state.filterText + "&before=" + encodeURIComponent(before) + "&after=" + encodeURIComponent(after);
-         console.log(url);
          this.getClasses(url);
     },
 
     handleGymChange: function(input) {
-    var url = this.state.url + "&gym=" + input.filteredGym + "&name=" + this.state.filterText
+    var url = this.state.url + "&gym=" + input.filteredGym + "&name=" + this.state.filterText + "&before=" + encodeURIComponent(this.state.filterDayBefore) + "&after=" + encodeURIComponent(this.state.filterDayAfter);
     this.setState({
         filteredGym: input.filteredGym
     });
@@ -104,7 +110,7 @@ var FilterableGymClassTable = React.createClass({
         this.setState({
             filterText: input.filterText
         });
-        var url = this.state.url +  "&gym=" + this.state.filteredGym + "&name=" + input.filterText
+        var url = this.state.url +  "&gym=" + this.state.filteredGym + "&name=" + input.filterText + "&before=" + encodeURIComponent(this.state.filterDayBefore) + "&after=" + encodeURIComponent(this.state.filterDayAfter);
         this.getClasses(url);
         },
     
@@ -191,22 +197,19 @@ var GymSelect = React.createClass({
 var GymClassTable = React.createClass({ 
     render: function() {
         var rows = [];
-        this.props.gymclass.forEach(function(gymclass, index) {
-            rows.push(<GymClassRow gymclass={gymclass} key={index}/>);
-        }.bind(this));
+        var currentDay = null;
+        if (this.props.gymclass != null) {
+            this.props.gymclass.forEach(function(gymclass, index) {
+                if (currentDay == null) {
+                    var currentDay = moment(gymclass.startdatetime);
+                }
+                rows.push(<GymClassRow gymclass={gymclass} key={index}/>);
+            }.bind(this));
+        } else {
+            rows = [];
+        }
         return (
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Gym</th>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Start Time</th>
-                        <th>Duration</th>
-                    </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </table>
+    <div className="listOfCards"> {rows} </div>
         );
     }
 });
@@ -215,13 +218,19 @@ var GymClassTable = React.createClass({
 var GymClassRow = React.createClass({
     render: function() {
         return (
-                <tr>
-                <td>{this.props.gymclass.gym.toLowerCase()}</td>
-                <td>{this.props.gymclass.name.toLowerCase()}</td>
-                <td>{this.props.gymclass.location.toLowerCase()}</td>
-                <td>{moment(this.props.gymclass.startdatetime).utcOffset("+0").format("ddd h:mm a")}</td>
-                <td>{moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()}</td>
-                </tr>
+            <div className="mdl-card mdl-card mdl-shadow--2dp">
+            <div className="mdl-card__title">
+                <h2 className="mdl-card__title-text">{this.props.gymclass.name}</h2>
+            </div>
+            <div className="mdl-card__supporting-text">
+            <ul>
+                <h4>{this.props.gymclass.gym.toLowerCase()} </h4>
+                <p> {this.props.gymclass.location.toLowerCase()} <br/>
+                {moment(this.props.gymclass.startdatetime).utcOffset("+0").format("dddd h:mm a").toLowerCase()} <br/>
+                {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes </p>
+             </ul>
+            </div>
+            </div>
         )
     }
 });
