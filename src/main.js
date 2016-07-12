@@ -58,7 +58,7 @@ var FilterableGymClassTable = React.createClass({
         fetch(url).then(
             _.throttle(function(response) { 
             return response.json();
-            }, 500)).then(function(res){
+            }, 750)).then(function(res){
                 this.filterResults(res)
             }.bind(this))
     },

@@ -7,14 +7,13 @@ $thirdColour: #247BA0;
 $nearWhite: #fafafa;
 $lightGrey: #8d99ae;
 
-$break-small: 1000px;
-$break-large: 1200px;
-
-/* iPhone 6 portrait */
-
-
-
-
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 1em;
+  }
+}
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
