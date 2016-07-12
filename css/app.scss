@@ -7,6 +7,14 @@ $thirdColour: #247BA0;
 $nearWhite: #fafafa;
 $lightGrey: #8d99ae;
 
+$break-small: 1000px;
+$break-large: 1200px;
+
+/* iPhone 6 portrait */
+
+
+
+
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
@@ -46,12 +54,24 @@ h3 {
 
 h4 {
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
+    font-size: 18px;
+ @media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    font-size: 22px;
+} 
+  
+  
 }
 
 p {
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+    font-size: 20px;
+  } 
+  
 }
 
 content {
@@ -77,32 +97,52 @@ content {
 
 
 input {
-    margin: 10px;
+    font-size: 14px;
+    height: 40px;
+    flex: 1 1 70%;
+    margin: 20px 20px 0px 20px;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+   font-size: 18px;
+    height: 50px;
+    flex: 1 1 100%;
+    margin: 20px 20px 0px 20px;
+  } 
     text-align: left;
-    width: 640px;
-    height: 35px;
     border: 1px solid $lightGrey;
     padding: 0px 0px 0px 10px;
     font-family: 'Lato', sans-serif;
-    font-size: 14px;
     text-transform: uppercase;
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
+    box-sizing:content-box;
 }
 
 select {
+    font-size: 14px;
+    height: 40px;
+    flex: -1 1 5%;
+    margin: 20px 20px 20px 0px;
+    order: 1;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+   font-size: 18px;
+    height: 50px;
+    flex: 1 1 auto;
+    margin: 20px 20px 0px 20px;
+  } 
   padding: 0px 0px 0px 10px; 
-  margin: 10px;
   color: $lightGrey;
   vertical-align: bottom;
   background-color: white;
-  height: 37px;
-  flex: 0 1 118;
-  width: 118px;
   border: 1px solid $lightGrey;
   font-family: 'Lato', sans-serif;
-  font-size: 14px;
   text-transform: uppercase;
   -webkit-appearance: none; 
   -webkit-border-radius: 0px;
+  -ms-box-sizing:content-box;
+  -moz-box-sizing:content-box;
+  -webkit-box-sizing:content-box; 
+  box-sizing:content-box;
 }
 
 .navBar {
@@ -131,38 +171,17 @@ h1 {
 
 
 .mdl-card {
-  flex: 0 0 auto;
+   flex: 0 0 250px;
+   @media only screen    
+    and (min-device-width: 320px)    
+    and (max-device-width: 667px)   
+    and (-webkit-min-device-pixel-ratio: 2) {
+      flex: 1 1 90%; 
+   }
   margin: 20px;
   color: $lightGrey;
   font-family: 'Lato', sans-serif;  
-
 }
-
-/* Small to medium screens */
-
-
-
-// /* Small to medium screens */
-// @media (min-width: 375px) and (max-width: 960px) {
-//  .mdl-card {
-//   flex: 0 1 50%;
-//   margin: 20px;
-//   color: $lightGrey;
-//   font-family: 'Lato', sans-serif;  
-//   }
-// }
-
-// /* Large screens */
-// @media (min-width: 961px) {
-//  .mdl-card {  
-//   flex: 0 1 25%;
-//   margin: 20px;
-//   color: $lightGrey;
-//   font-family: 'Lato', sans-serif;
-//   }
-// }
-
-
 
 .mdl-card__title {
   font-family: 'Lato', sans-serif;
@@ -172,12 +191,22 @@ h1 {
 }
 
 .mdl-card__title-text{
+   font-size: 18px;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+  font-size: 24px;
+  } 
   text-align: center;
   margin: 0 auto;
-  font-size: 18px;
+ 
 }
 
 .mdl-card__supporting-text {
   padding: 5px;
+   text-align: left;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+   text-align: center;
+  } 
+ 
+
 }
 
