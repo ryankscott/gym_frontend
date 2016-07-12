@@ -30,7 +30,10 @@ body {
 }
 
 h1 { 
-    font-size: 20px;
+   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+   font-size: 36px;
+   } 
+    font-size: 22px;
     text-transform: uppercase;
     color: $nearWhite;
     text-align: left;
@@ -59,7 +62,7 @@ h4 {
   and (min-device-width: 320px) 
   and (max-device-width: 667px)
   and (-webkit-min-device-pixel-ratio: 2) {
-    font-size: 22px;
+    font-size: 36px;
 } 
   
   
@@ -69,7 +72,8 @@ p {
     font-family: 'Lato', sans-serif;
     font-size: 16px;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-    font-size: 20px;
+    font-size: 32px;
+    line-height: 32px;
   } 
   
 }
@@ -102,8 +106,8 @@ input {
     flex: 1 1 70%;
     margin: 20px 20px 0px 20px;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   font-size: 18px;
-    height: 50px;
+   font-size: 36px;
+    height: 100px;
     flex: 1 1 100%;
     margin: 20px 20px 0px 20px;
   } 
@@ -125,9 +129,9 @@ select {
     margin: 20px 20px 20px 0px;
     order: 1;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   font-size: 18px;
-    height: 50px;
-    flex: 1 1 auto;
+   font-size: 36px;
+    height: 100px;
+    flex: 1 1 40%;
     margin: 20px 20px 0px 20px;
   } 
   padding: 0px 0px 0px 10px; 
@@ -153,6 +157,10 @@ select {
   align-content: flex-start;
   margin: 0px auto;
   height: 50px;
+  @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+    height: 100px;
+     } 
+  
   background-color: $mainColour;
 h1 {
     padding-left: 20px;
@@ -193,7 +201,7 @@ h1 {
 .mdl-card__title-text{
    font-size: 18px;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-  font-size: 24px;
+  font-size: 36px;
   } 
   text-align: center;
   margin: 0 auto;
@@ -205,7 +213,7 @@ h1 {
    text-align: left;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
    text-align: center;
-  } 
+     } 
  
 
 }

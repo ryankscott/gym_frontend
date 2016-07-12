@@ -10,13 +10,16 @@ body {
   height: 100%; }
 
 h1 {
-  font-size: 20px;
+  font-size: 22px;
   text-transform: uppercase;
   color: #fafafa;
   text-align: left;
   vertical-align: middle;
   letter-spacing: 1px;
   font-family: 'Lato', sans-serif; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    h1 {
+      font-size: 36px; } }
 
 h2 {
   font-size: 18px;
@@ -34,14 +37,15 @@ h4 {
   font-size: 18px; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     h4 {
-      font-size: 22px; } }
+      font-size: 36px; } }
 
 p {
   font-family: 'Lato', sans-serif;
   font-size: 16px; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     p {
-      font-size: 20px; } }
+      font-size: 32px;
+      line-height: 32px; } }
 
 content {
   display: flex;
@@ -77,8 +81,8 @@ input {
   box-sizing: content-box; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     input {
-      font-size: 18px;
-      height: 50px;
+      font-size: 36px;
+      height: 100px;
       flex: 1 1 100%;
       margin: 20px 20px 0px 20px; } }
 
@@ -103,9 +107,9 @@ select {
   box-sizing: content-box; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     select {
-      font-size: 18px;
-      height: 50px;
-      flex: 1 1 auto;
+      font-size: 36px;
+      height: 100px;
+      flex: 1 1 40%;
       margin: 20px 20px 0px 20px; } }
 
 .navBar {
@@ -117,6 +121,9 @@ select {
   margin: 0px auto;
   height: 50px;
   background-color: #F25F5C; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    .navBar {
+      height: 100px; } }
   .navBar h1 {
     padding-left: 20px;
     align-self: center; }
@@ -149,7 +156,7 @@ select {
   margin: 0 auto; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
     .mdl-card__title-text {
-      font-size: 24px; } }
+      font-size: 36px; } }
 
 .mdl-card__supporting-text {
   padding: 5px;
