@@ -1,10 +1,5 @@
 /* Coolors Exported Palette - coolors.co/fafafa-e3f2fd-db5461-686963-8aa29e */
 @import url("https://fonts.googleapis.com/css?family=Lato");
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  select:focus,
-  textarea:focus,
-  input:focus {
-    font-size: 1em; } }
 html {
   height: 100%; }
 

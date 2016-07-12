@@ -7,13 +7,6 @@ $thirdColour: #247BA0;
 $nearWhite: #fafafa;
 $lightGrey: #8d99ae;
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
-  select:focus,
-  textarea:focus,
-  input:focus {
-    font-size: 1em;
-  }
-}
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
