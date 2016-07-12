@@ -105,7 +105,7 @@ input {
     height: 40px;
     flex: 1 1 70%;
     margin: 20px 20px 0px 20px;
-   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
+   @media only screen and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
    font-size: 36px;
     height: 100px;
     flex: 1 1 100%;
@@ -132,7 +132,7 @@ select {
    font-size: 36px;
     height: 100px;
     flex: 1 1 40%;
-    margin: 20px 20px 0px 20px;
+    margin: 20px 20px 40px 20px;
   } 
   padding: 0px 0px 0px 10px; 
   color: $lightGrey;
@@ -184,7 +184,7 @@ h1 {
     and (min-device-width: 320px)    
     and (max-device-width: 667px)   
     and (-webkit-min-device-pixel-ratio: 2) {
-      flex: 1 1 90%; 
+      flex: 0 1 60%; 
    }
   margin: 20px;
   color: $lightGrey;
