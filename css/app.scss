@@ -7,8 +7,8 @@ $thirdColour: #247BA0;
 $nearWhite: #fafafa;
 $lightGrey: #8d99ae;
 
-
 @import url('https://fonts.googleapis.com/css?family=Lato');
+
 
 html {
   height: 100%;
@@ -23,9 +23,9 @@ body {
 
 h1 { 
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   font-size: 36px;
+   font-size: 2em;
    } 
-    font-size: 22px;
+    font-size: 1.5em;
     text-transform: uppercase;
     color: $nearWhite;
     text-align: left;
@@ -35,7 +35,7 @@ h1 {
   } 
 
 h2 { 
-    font-size: 18px;
+    font-size: 1em;
     text-transform: uppercase;
     color: $darkGrey;
     text-align: left;
@@ -49,12 +49,12 @@ h3 {
 
 h4 {
   font-family: 'Lato', sans-serif;
-    font-size: 18px;
+    font-size: 1em;
  @media only screen 
   and (min-device-width: 320px) 
   and (max-device-width: 667px)
   and (-webkit-min-device-pixel-ratio: 2) {
-    font-size: 36px;
+    font-size: 2em;
 } 
   
   
@@ -62,9 +62,9 @@ h4 {
 
 p {
     font-family: 'Lato', sans-serif;
-    font-size: 16px;
+    font-size: 1em;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-    font-size: 32px;
+    font-size: 2em;
     line-height: 32px;
   } 
   
@@ -92,68 +92,31 @@ content {
 }
 
 
-input {
-  color: $lightGrey;
-    font-size: 14px;
-    height: 40px;
-    flex: 1 1 70%;
+.searchBar {
+    font-size: 1em;
+    flex: 10 1 400px;
     margin: 20px 20px 0px 20px;
    @media only screen and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   font-size: 36px;
-    height: 100px;
-    flex: 1 1 100%;
-    margin: 20px 20px 0px 20px;
+      font-size: 2em;
+      height: 100px;
+      flex: 1 1 100%;
   } 
-    text-align: left;
-    border: 1px solid $lightGrey;
-    padding: 0px 0px 0px 10px;
-    font-family: 'Lato', sans-serif;
-    text-transform: uppercase;
-    -ms-box-sizing:content-box;
-    -moz-box-sizing:content-box;
-    -webkit-box-sizing:content-box; 
-    box-sizing:content-box;
 }
 
-select {
-    font-size: 14px;
-    height: 40px;
-    flex: -1 1 5%;
-    margin: 20px 20px 20px 0px;
-    order: 1;
+
+.chooser {
+    font-size: 1em;
+    flex: 1 0 120px;
+    margin: 20px 20px 0px 20px;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   font-size: 36px;
-    height: 100px;
+   font-size: 2em;
     flex: 1 1 40%;
-    margin: 20px 20px 40px 20px;
+    margin: 20px 20px 0px 20px;
   } 
-  padding: 0px 0px 0px 10px; 
-  color: $lightGrey;
   vertical-align: bottom;
-  background-color: white;
-  border: 1px solid $lightGrey;
-  font-family: 'Lato', sans-serif;
-  text-transform: uppercase;
-  -webkit-appearance: none; 
-  -webkit-border-radius: 0px;
-  -ms-box-sizing:content-box;
-  -moz-box-sizing:content-box;
-  -webkit-box-sizing:content-box; 
-  box-sizing:content-box;
 }
 
 .navBar {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  margin: 0px auto;
-  height: 50px;
-  @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-    height: 100px;
-     } 
-  
   background-color: $mainColour;
 h1 {
     padding-left: 20px;
@@ -171,42 +134,37 @@ h1 {
 }
 
 
-.mdl-card {
-   flex: 0 0 250px;
-   @media only screen    
-    and (min-device-width: 320px)    
-    and (max-device-width: 667px)   
+.gymCard {
+    flex: 0 1 300px;
+    font-size: 1em;
+   @media only screen
+    and (min-device-width: 320px)
+    and (max-device-width: 667px)
     and (-webkit-min-device-pixel-ratio: 2) {
-      flex: 0 1 60%; 
+      flex: 0 1 95%;
+      font-size: 2em;
    }
-  margin: 20px;
+  margin: 10px;
+  margin-top: 20px;
   color: $lightGrey;
-  font-family: 'Lato', sans-serif;  
 }
 
-.mdl-card__title {
-  font-family: 'Lato', sans-serif;
-  color: white;
-  background: #444444;
-  opacity: 0.8;
-}
 
-.mdl-card__title-text{
-   font-size: 18px;
+.gymCardTitle{
+   font-size: 1em;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-  font-size: 36px;
-  } 
-  text-align: center;
+  font-size: 2em;
+  }
   margin: 0 auto;
  
 }
 
-.mdl-card__supporting-text {
+.gymCardText {
   padding: 5px;
    text-align: left;
    @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-   text-align: center;
-     } 
+       font-size: 2em;
+   }
  
 
 }
