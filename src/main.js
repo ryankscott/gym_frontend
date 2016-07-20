@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
 import 'whatwg-fetch';
 
 
@@ -27,9 +27,6 @@ String.prototype.toTitleCase = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
-var appSearch =  function(i, props) {
-}
-
 import {
     blue300,
     indigo900,
@@ -41,20 +38,6 @@ import {
 
 
 
-// var SearchBar = React.createClass({
-// 		render: function() {
-// 				return (
-
-// 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-//                 <Drawer open={this.state.open}>
-//                 <MenuItem>Menu Item</MenuItem>
-//                 <MenuItem>Menu Item 2</MenuItem>
-//                 </Drawer>
-// 						</ MuiThemeProvider >
-//         );
-// 		}
-// }) ;
-
 
 var NavBar = React.createClass({
 		render: function() {
@@ -62,27 +45,24 @@ var NavBar = React.createClass({
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
                 <AppBar
             showMenuIconButton={false}
-            onTitleTouchTap={appSearch}
             iconElementLeft={<IconButton><SearchIcon /></IconButton>}
             title="Gym Search"
-            className="navBar"
-                />
+            className="navBar" />
 								</ MuiThemeProvider >
         );
-				}
-}) ;
+		}
+});
 ReactDOM.render(<NavBar />, document.getElementById('navbar'));
 
 //SearchBar
 var SearchBar = React.createClass({
 		getInitialState: function() {
-    return {}
+        return {value: ""};
     },
 
     handleChange: _.debounce(function(event, index, value) {
-		this.props.onUserInput(
-				{filterText: index}
-				);
+        this.setState({value: index})
+        this.props.onUserInput({filterText: index});
 		}, 300),
 		render: function() {
 				return (
@@ -106,97 +86,122 @@ var SearchBar = React.createClass({
 var FilterableGymClassTable = React.createClass({
 		getInitialState: function() {
 				return {
+
 						filteredGym: '',
 						filterText: '',
-						filterDay: 'today',
-            filterDayBefore: '', 
-						filterDayAfter: '',
-						gymclass: [],
-				    url: "http://localhost:9000/?limit=100"
-				};
+            filterDateBefore: moment().endOf('day'), 
+            filterDateAfter: moment(),
+            filterTimeAfter: moment({h:0, m:0, s:0}),
+            filterTimeBefore: moment({h: 23, m:59, s:59}),
+            gymclass: [],
+				    url: "http://localhost:9000/?limit=100",
+            baseUrl: "http://localhost:9000/?limit=100"
+        };
 		},
 
 		getClasses: function(url) {
-				fetch(url).then(
+        fetch(url).then(
 						function(response) { 
 						return response.json();
 						}).then(function(res){
-								this.filterResults(res)
-						}.bind(this))
+								this.filterResults(res);
+						}.bind(this));
 		},
 
 		filterResults: function(response) {
-		this.setState({
-				gymclass: response,
-				}) 
+		    this.setState({
+				    gymclass: response
+		    }); 
 		},
 
+    componentDidUpdate: function() {
+    },
+
 		componentDidMount: function() {
-				var url = this.state.url + "&before=" + encodeURIComponent(moment().endOf('day').format("YYYY-MM-DDTHH:mm:ssZ")) + "&after=" + encodeURIComponent(moment().format("YYYY-MM-DDTHH:mm:ssZ"));
-        console.log(url)
+            var url = this.state.url.concat("&gym=",
+                                            this.state.filteredGym,
+                                            "&name=",
+                                            this.state.filterText,
+                                            "&before=",
+                                         encodeURIComponent(this.state.filterDateBefore.format("YYYY-MM-DDTHH:mm:ssZ")),
+                                            "&after=",
+                                         encodeURIComponent(this.state.filterDateAfter.format("YYYY-MM-DDTHH:mm:ssZ")));
         this.getClasses(url);
-		},	 
+		},
 
 		componentWillUnmount: function() {
 			this.serverRequest.abort();
 		},
 
-		handleDayChange: function(e) {
-				var before, after = "";
-				switch (e.filterDay) {
-						case "today":
-								after = moment().format("YYYY-MM-DDTHH:mm:ssZ");
-								before = moment().endOf('day').format("YYYY-MM-DDTHH:mm:ssZ");
-								break;
-						case "tomorrow":
-								after = moment().add(1,'days').startOf('day').format("YYYY-MM-DDTHH:mm:ssZ");
-								before = moment().add(1,'days').endOf('day').format("YYYY-MM-DDTHH:mm:ssZ");
-								break;
-						case "thisWeek":
-								after = moment().format("YYYY-MM-DDTHH:mm:ssZ");
-								before = moment().add(1,'weeks').endOf('day').format("YYYY-MM-DDTHH:mm:ssZ");
-								break;
-				}
-				 this.setState({
-						 filterDayAfter: after,
-						 filterDayBefore: before
-				 })
-				 var url = this.state.url + "&gym=" + this.state.filteredGym + "&name=" + this.state.filterText + "&before=" + encodeURIComponent(before) + "&after=" + encodeURIComponent(after);
-				 this.getClasses(url);
-		},
+    handleChange: function(input) {
 
-		handleGymChange: function(input) {
-		var url = this.state.url + "&gym=" + input.filteredGym + "&name=" + this.state.filterText + "&before=" + encodeURIComponent(this.state.filterDayBefore) + "&after=" + encodeURIComponent(this.state.filterDayAfter);
-		this.setState({
-				filteredGym: input.filteredGym
-		});
-		 this.getClasses(url);
-		},
+        // Good luck debugging this future me
+        // I'm trying to merge these two objects, input should have the things that change and state the current state
+        // If we have the attribute in the state, but not in the input then copy it to the input
+        for (var attrname in this.state) {
+            if (this.state[attrname] && !input[attrname]){
+                input[attrname] = this.state[attrname];
+            }
+        }
 
-		handleTextChange: function(input) {
-				this.setState({
-						filterText: input.filterText
-				});
-				var url = this.state.url +	"&gym=" + this.state.filteredGym + "&name=" + input.filterText + "&before=" + encodeURIComponent(this.state.filterDayBefore) + "&after=" + encodeURIComponent(this.state.filterDayAfter);
-				this.getClasses(url);
-				},
-		
-		render: function() {
+        this.setState(input, function() {
+
+            // Prepare the datetime
+            var beforeDateTime = moment({
+                'year': this.state.filterDateBefore.year(),
+                'month': this.state.filterDateBefore.month(),
+                'day': this.state.filterDateBefore.date(),
+                'hour': this.state.filterTimeBefore.hour(),
+                'minute': this.state.filterTimeBefore.minute(),
+                'second': this.state.filterTimeBefore.second()
+            })
+
+            var afterDateTime = moment({
+                'year': this.state.filterDateAfter.year(),
+                'month': this.state.filterDateAfter.month(),
+                'day': this.state.filterDateAfter.date(),
+                'hour': this.state.filterTimeAfter.hour(),
+                'minute': this.state.filterTimeAfter.minute(),
+                'second': this.state.filterTimeAfter.second()
+            })
+
+
+            var url = this.state.url.concat("&gym=",
+                                            this.state.filteredGym,
+                                            "&name=",
+                                            this.state.filterText,
+                                            "&before=",
+                                         encodeURIComponent(beforeDateTime.format("YYYY-MM-DDTHH:mm:ssZ")),
+                                            "&after=",
+                                         encodeURIComponent(afterDateTime.format("YYYY-MM-DDTHH:mm:ssZ")));
+            this.getClasses(url);
+        });
+    },
+
+
+    render: function() {
 				return (
 								<div>
 								<div id="filterBar">
 								<SearchBar 
 										filterText={this.state.filterText}
-										onUserInput={this.handleTextChange}
+										onUserInput={this.handleChange}
 										/>
 										<GymSelect 
 												filteredGym={this.state.filteredGym}
-												onUserInput={this.handleGymChange}
+												onUserInput={this.handleChange}
 										/>
-										 <DaySelect 
-										 filterDay={this.state.filterDay}
-										 onUserInput={this.handleDayChange}
+								<DaySelect
+            value={this.state.value}
+						filterDateBefore={this.state.filterDateBefore}
+						filterDateAfter={this.state.filterDateAfter}
+										 onUserInput={this.handleChange}
 								/>
+                <TimeSelect
+            filterTimeBefore={this.state.filterTimeBefore}
+            filterTimeAfter={this.state.filterTimeAfter}
+            onUserInput={this.handleChange}
+                />
 								</div>
 							 <div> 
 								<GymClassTable
@@ -208,14 +213,89 @@ var FilterableGymClassTable = React.createClass({
 		}
 }); 
 
+var TimeSelect = React.createClass({
+		getInitialState:function(){
+				return {value: ""};
+		},
+
+    handleChange: function(event, index, value) {
+        var before, after;
+        switch (value) {
+        case "":
+            after=moment({h:0, m:0, s:0});
+            before=moment({h: 23, m:59, s:59})
+            break;
+        case "morning":
+            after=moment({h:0, m:0, s:0});
+            before=moment({h: 11, m:59, s:59})
+            break;
+        case "afternoon":
+            after=moment({h:12, m:0, s:0});
+            before=moment({h: 15, m:59, s:59})
+            break;
+        case "evening":
+            after=moment({h:16, m:0, s:0});
+            before=moment({h: 23, m:59, s:59})
+            break;
+
+        }
+        this.props.onUserInput({
+            filterTimeAfter: after,
+            filterTimeBefore: before}
+                              );
+        this.setState({value: value})
+    },
+
+		render: function() {
+				return (
+								<MuiThemeProvider muiTheme={getMuiTheme()} >
+                <SelectField
+            className="chooser"
+            value={this.state.value}
+            onChange={this.handleChange}
+            style={{
+                fontSize: '1em',
+                fontFamily: "Lato, sans-serif"
+            }}
+                >
+								<MenuItem value="" primaryText="All day" />
+								<MenuItem value="morning" primaryText="Morning" />
+								<MenuItem value="afternoon" primaryText="Afternoon" />
+								<MenuItem value="evening" primaryText="Evening" />
+						    </SelectField>
+                </MuiThemeProvider >
+				)
+		}
+});
+
 var DaySelect = React.createClass({
 		getInitialState:function(){
 				return {value: "today"};
 		},
 
     handleChange: function(event, index, value) {
-        this.setState({value: value})
-        this.props.onUserInput({filterDay: value});
+				var before, after;
+				switch (value) {
+				case "today":
+						after = moment();
+						before = moment().endOf('day');
+						break;
+				case "tomorrow":
+						after = moment().add(1,'days').startOf('day');
+						before = moment().add(1,'days').endOf('day');
+						break;
+				case "thisWeek":
+						after = moment();
+						before = moment().add(1,'weeks').endOf('day');
+						break;
+				}
+        this.props.onUserInput({
+             filterDateAfter: after,
+            filterDateBefore: before}
+                              );
+
+        this.setState({value: value});
+
     },
 
 		render: function() {
