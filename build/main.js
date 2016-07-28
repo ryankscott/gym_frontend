@@ -114,6 +114,14 @@
 
 	var _Avatar2 = _interopRequireDefault(_Avatar);
 
+	var _Divider = __webpack_require__(540);
+
+	var _Divider2 = _interopRequireDefault(_Divider);
+
+	var _Paper = __webpack_require__(495);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _colors = __webpack_require__(457);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -342,8 +350,7 @@
 	                    style: {
 	                        fontSize: '1em',
 	                        fontFamily: "Lato, sans-serif"
-	                    }
-	                },
+	                    } },
 	                _react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'All day' }),
 	                _react2.default.createElement(_MenuItem2.default, { value: 'morning', primaryText: 'Morning' }),
 	                _react2.default.createElement(_MenuItem2.default, { value: 'afternoon', primaryText: 'Afternoon' }),
@@ -449,11 +456,12 @@
 
 	    render: function render() {
 	        var rows = [];
-	        var currentDay = null;
+	        var currentDay = (0, _moment2.default)();
 	        if (this.props.gymclass != null) {
 	            this.props.gymclass.forEach(function (gymclass, index) {
-	                if (currentDay == null) {
-	                    var currentDay = (0, _moment2.default)(gymclass.startdatetime);
+	                if ((0, _moment2.default)(gymclass.startdatetime).dayOfYear() != currentDay.dayOfYear()) {
+	                    currentDay = (0, _moment2.default)(gymclass.startdatetime);
+	                    rows.push(_react2.default.createElement(GymClassDaySeparator, { day: currentDay.format("dddd") }));
 	                }
 	                rows.push(_react2.default.createElement(GymClassRow, { gymclass: gymclass, key: index }));
 	            }.bind(this));
@@ -470,8 +478,36 @@
 	    }
 	});
 
+	var GymClassDaySeparator = _react2.default.createClass({
+	    displayName: 'GymClassDaySeparator',
+
+	    getInitialState: function getInitialState() {
+	        return {};
+	    },
+
+	    render: function render(props) {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'separator' },
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    ' ',
+	                    this.props.day,
+	                    '  '
+	                ),
+	                _react2.default.createElement('hr', null)
+	            )
+	        );
+	    }
+	});
+
 	var GymClassRow = _react2.default.createClass({
 	    displayName: 'GymClassRow',
+
 
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -482,7 +518,7 @@
 	                { className: 'gymCard' },
 	                _react2.default.createElement(_Card.CardHeader, {
 	                    titleStyle: {
-	                        fontSize: '1.5em'
+	                        fontSize: '1.2em'
 	                    },
 	                    subtitleStyle: {
 	                        fontSize: '.8em'
@@ -499,13 +535,14 @@
 	                    _Card.CardText,
 	                    {
 	                        style: {
-	                            fontSize: '1em'
+	                            fontSize: '1em',
+	                            padding: '0px 16px 16px 16px'
 	                        }
 	                    },
 	                    this.props.gymclass.location.toLowerCase(),
 	                    ' ',
 	                    _react2.default.createElement('br', null),
-	                    (0, _moment2.default)(this.props.gymclass.startdatetime).utcOffset("+0").format("dddd h:mm a").toLowerCase(),
+	                    (0, _moment2.default)(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase(),
 	                    ' ',
 	                    _react2.default.createElement('br', null),
 	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
@@ -72326,6 +72363,103 @@
 	  lock: _react.PropTypes.bool.isRequired
 	};
 	exports.default = AutoLockScrolling;
+
+/***/ },
+/* 540 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _Divider = __webpack_require__(541);
+
+	var _Divider2 = _interopRequireDefault(_Divider);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Divider2.default;
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _simpleAssign = __webpack_require__(280);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	var propTypes = {
+	  /**
+	   * The css class name of the root element.
+	   */
+	  className: _react.PropTypes.string,
+	  /**
+	   * If true, the `Divider` will be indented `72px`.
+	   */
+	  inset: _react.PropTypes.bool,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	};
+
+	var defaultProps = {
+	  inset: false
+	};
+
+	var contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+
+	var Divider = function Divider(props, context) {
+	  var inset = props.inset;
+	  var style = props.style;
+
+	  var other = _objectWithoutProperties(props, ['inset', 'style']);
+
+	  var muiTheme = context.muiTheme;
+	  var prepareStyles = muiTheme.prepareStyles;
+
+
+	  var styles = {
+	    root: {
+	      margin: 0,
+	      marginTop: -1,
+	      marginLeft: inset ? 72 : 0,
+	      height: 1,
+	      border: 'none',
+	      backgroundColor: muiTheme.baseTheme.palette.borderColor
+	    }
+	  };
+
+	  return _react2.default.createElement('hr', _extends({}, other, { style: prepareStyles((0, _simpleAssign2.default)({}, styles.root, style)) }));
+	};
+
+	Divider.muiName = 'Divider';
+	Divider.propTypes = propTypes;
+	Divider.defaultProps = defaultProps;
+	Divider.contextTypes = contextTypes;
+
+	exports.default = Divider;
 
 /***/ }
 /******/ ]);

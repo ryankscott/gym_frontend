@@ -20,6 +20,9 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import TextField from 'material-ui/TextField';
 import Drawer from 'material-ui/Drawer';
 import Avatar from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+
 
 injectTapEventPlugin();
 
@@ -44,10 +47,10 @@ var NavBar = React.createClass({
 				return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
                 <AppBar
-            showMenuIconButton={false}
-            iconElementLeft={<IconButton><SearchIcon /></IconButton>}
-            title="Gym Search"
-            className="navBar" />
+                    showMenuIconButton={false}
+                    iconElementLeft={<IconButton><SearchIcon /></IconButton>}
+                    title="Gym Search"
+                    className="navBar" />
 								</ MuiThemeProvider >
         );
 		}
@@ -61,21 +64,20 @@ var SearchBar = React.createClass({
     },
 
     handleChange: _.debounce(function(event, index, value) {
-        this.setState({value: index})
+        this.setState({value: index});
         this.props.onUserInput({filterText: index});
 		}, 300),
 		render: function() {
 				return (
-
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
                 <TextField
-            className="searchBar"
-            hintText="Search for a class"
-            onChange={this.handleChange}
-            hintStyle={{
-                fontSize: '1em',
-                fontFamily: "Lato, sans-serif"
-            }}
+                    className="searchBar"
+                    hintText="Search for a class"
+                    onChange={this.handleChange}
+                    hintStyle={{
+                        fontSize: '1em',
+                        fontFamily: "Lato, sans-serif"
+                    }}
                 />
                 </ MuiThemeProvider>
 				)
@@ -182,32 +184,32 @@ var FilterableGymClassTable = React.createClass({
     render: function() {
 				return (
 								<div>
-								<div id="filterBar">
-								<SearchBar 
-										filterText={this.state.filterText}
-										onUserInput={this.handleChange}
-										/>
-										<GymSelect 
-												filteredGym={this.state.filteredGym}
-												onUserInput={this.handleChange}
-										/>
-								<DaySelect
-            value={this.state.value}
-						filterDateBefore={this.state.filterDateBefore}
-						filterDateAfter={this.state.filterDateAfter}
-										 onUserInput={this.handleChange}
-								/>
-                <TimeSelect
-            filterTimeBefore={this.state.filterTimeBefore}
-            filterTimeAfter={this.state.filterTimeAfter}
-            onUserInput={this.handleChange}
-                />
-								</div>
-							 <div> 
-								<GymClassTable
-										gymclass={this.state.gymclass}
-								/>
-								</div>
+								    <div id="filterBar">
+								        <SearchBar
+                            filterText={this.state.filterText}
+                            onUserInput={this.handleChange}
+                        />
+								        <GymSelect
+                            filteredGym={this.state.filteredGym}
+                            onUserInput={this.handleChange}
+                        />
+							          <DaySelect
+                            value={this.state.value}
+                            filterDateBefore={this.state.filterDateBefore}
+                            filterDateAfter={this.state.filterDateAfter}
+	                          onUserInput={this.handleChange}
+                        />
+                        <TimeSelect
+                            filterTimeBefore={this.state.filterTimeBefore}
+                            filterTimeAfter={this.state.filterTimeAfter}
+                            onUserInput={this.handleChange}
+                        />
+                    </div>
+                    <div>
+								        <GymClassTable
+                            gymclass={this.state.gymclass}
+                        />
+								    </div>
 								</div>
 				)
 		}
@@ -249,20 +251,19 @@ var TimeSelect = React.createClass({
 		render: function() {
 				return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-                <SelectField
-            className="chooser"
-            value={this.state.value}
-            onChange={this.handleChange}
-            style={{
-                fontSize: '1em',
-                fontFamily: "Lato, sans-serif"
-            }}
-                >
-								<MenuItem value="" primaryText="All day" />
-								<MenuItem value="morning" primaryText="Morning" />
-								<MenuItem value="afternoon" primaryText="Afternoon" />
-								<MenuItem value="evening" primaryText="Evening" />
-						    </SelectField>
+                    <SelectField
+                        className="chooser"
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        style={{
+                            fontSize: '1em',
+                            fontFamily: "Lato, sans-serif"
+                        }}>
+								        <MenuItem value="" primaryText="All day" />
+								        <MenuItem value="morning" primaryText="Morning" />
+								        <MenuItem value="afternoon" primaryText="Afternoon" />
+								        <MenuItem value="evening" primaryText="Evening" />
+						        </SelectField>
                 </MuiThemeProvider >
 				)
 		}
@@ -301,20 +302,20 @@ var DaySelect = React.createClass({
 		render: function() {
 				return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-                <SelectField
-            className="chooser"
-            value={this.state.value}
-            onChange={this.handleChange}
-            style={{
-                fontSize: '1em',
-                fontFamily: "Lato, sans-serif"
-            }}
-                >
-								<MenuItem value="" primaryText="Any day" />
-								<MenuItem value="today" primaryText="Today" />
-								<MenuItem value="tomorrow" primaryText="Tomorrow" />
-								<MenuItem value="thisWeek" primaryText="This week" />
-						    </SelectField>
+                    <SelectField
+                        className="chooser"
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        style={{
+                            fontSize: '1em',
+                            fontFamily: "Lato, sans-serif"
+                        }}
+                    >
+								        <MenuItem value="" primaryText="Any day" />
+								        <MenuItem value="today" primaryText="Today" />
+								        <MenuItem value="tomorrow" primaryText="Tomorrow" />
+								        <MenuItem value="thisWeek" primaryText="This week" />
+						        </SelectField>
                 </MuiThemeProvider >
 				)
 		}
@@ -334,22 +335,21 @@ var GymSelect = React.createClass({
 		render: function() {
 				return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-					 <SelectField id = "dropdown"
-						value={this.state.value} 
-						onChange={this.gymChange}
-            className="chooser"
-            style={{
-                fontSize: '1em',
-                fontFamily: "Lato, sans-serif"
-            }}
-					 >
-								<MenuItem value="" primaryText = "Any Gym" />
-								<MenuItem value="city" primaryText="City"/>
-								<MenuItem value="britomart" primaryText="Britomart" />
-								<MenuItem value="takapuna" primaryText="Takapuna" />
-								<MenuItem value="newmarket" primaryText="Newmarket" />
+					          <SelectField id = "dropdown"
+                                 value={this.state.value}
+                                 onChange={this.gymChange}
+                                 className="chooser"
+                                 style={{
+                                     fontSize: '1em',
+                                     fontFamily: "Lato, sans-serif"
+                                 }}
+					          >
+								        <MenuItem value="" primaryText = "Any Gym" />
+								        <MenuItem value="city" primaryText="City"/>
+								        <MenuItem value="britomart" primaryText="Britomart" />
+								        <MenuItem value="takapuna" primaryText="Takapuna" />
+								        <MenuItem value="newmarket" primaryText="Newmarket" />
 						    </SelectField>
-
             </MuiThemeProvider >
         )
 		}
@@ -359,50 +359,71 @@ var GymSelect = React.createClass({
 var GymClassTable = React.createClass({ 
 		render: function() {
 				var rows = [];
-				var currentDay = null;
+				var currentDay = moment();
 				if (this.props.gymclass != null) {
 						this.props.gymclass.forEach(function(gymclass, index) {
-								if (currentDay == null) {
-										var currentDay = moment(gymclass.startdatetime);
-								}
-								rows.push(<GymClassRow gymclass={gymclass} key={index}/>);
+                if (moment(gymclass.startdatetime).dayOfYear() != currentDay.dayOfYear()) {
+                    currentDay = moment(gymclass.startdatetime)
+                    rows.push(<GymClassDaySeparator day={currentDay.format("dddd")}/>)
+                }
+		            rows.push(<GymClassRow gymclass={gymclass} key={index}/>);
 						}.bind(this));
 				} else {
 						rows = [];
 				}
 				return (
-		<div className="listOfCards"> {rows} </div>
+		        <div className="listOfCards"> {rows} </div>
 				);
 		}
 });
 
 
+var GymClassDaySeparator = React.createClass({
+    getInitialState:function(){
+        return {};
+    },
+    
+    render: function(props) {
+        return (
+            <MuiThemeProvider muiTheme={getMuiTheme()} >
+                <div className="separator">
+                    <p> {this.props.day}  </p>
+                    <hr />
+                </div>
+            </MuiThemeProvider>
+        )
+    }
+});
+
+
 var GymClassRow = React.createClass({
+
 		render: function() {
 				return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-								<Card className="gymCard" >
-								<CardHeader
-            titleStyle={{
-                fontSize:'1.5em'
-            }}
-            subtitleStyle={{
-                fontSize:'.8em'
-            }}
-            avatar= {<Avatar size={40} backgroundColor={pink400}>{this.props.gymclass.gym.toUpperCase().charAt(0)}</Avatar>}
-            title={this.props.gymclass.name.toLowerCase()}
-            subtitle={this.props.gymclass.gym.toLowerCase()}
-                />
-                <CardText
-            style={{
-                fontSize:'1em'
-            }}
-                >
-                {this.props.gymclass.location.toLowerCase()} <br/>
-                {moment(this.props.gymclass.startdatetime).utcOffset("+0").format("dddd h:mm a").toLowerCase()} <br/>
-                {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes
-                </CardText>
-                </Card>
+								    <Card className="gymCard" >
+								        <CardHeader
+                            titleStyle={{
+                                fontSize:'1.2em',
+                            }}
+                            subtitleStyle={{
+                                fontSize:'.8em'
+                            }}
+                            avatar= {<Avatar size={40} backgroundColor={pink400}>{this.props.gymclass.gym.toUpperCase().charAt(0)}</Avatar>}
+                            title={this.props.gymclass.name.toLowerCase()}
+                            subtitle={this.props.gymclass.gym.toLowerCase()}
+                        />
+                        <CardText
+                            style={{
+                                fontSize:'1em',
+                                padding:'0px 16px 16px 16px'
+                            }}
+                        >
+                            {this.props.gymclass.location.toLowerCase()} <br/>
+                            {moment(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase()} <br/>
+                            {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes
+                        </CardText>
+                    </Card>
                 </MuiThemeProvider>
         )
     }

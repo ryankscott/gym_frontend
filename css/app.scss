@@ -131,11 +131,12 @@ h1 {
   justify-content: center;
   flex-wrap: wrap;
   align-content: center;
+  padding: 0px 20px 0px 20px;
 }
 
 
 .gymCard {
-    flex: 0 1 300px;
+    flex: 0 1 285px;
     font-size: 1em;
    @media only screen
     and (min-device-width: 320px)
@@ -150,22 +151,20 @@ h1 {
 }
 
 
-.gymCardTitle{
-   font-size: 1em;
-   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-  font-size: 2em;
-  }
-  margin: 0 auto;
- 
+.separator {
+    flex: 0 0 100%;
+    color: black;
+    p {
+        font-size: 18px;
+        margin: 18px 0px 5px 0px;
+    }
 }
 
-.gymCardText {
-  padding: 5px;
-   text-align: left;
-   @media only screen    and (min-device-width: 320px)    and (max-device-width: 667px)   and (-webkit-min-device-pixel-ratio: 2) {
-       font-size: 2em;
-   }
- 
+hr {
+    border: 0;
+    height: 0;
+    margin: 0px 0px 8px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
 }
-

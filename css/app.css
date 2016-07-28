@@ -96,10 +96,11 @@ content {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  align-content: center; }
+  align-content: center;
+  padding: 0px 20px 0px 20px; }
 
 .gymCard {
-  flex: 0 1 300px;
+  flex: 0 1 285px;
   font-size: 1em;
   margin: 10px;
   margin-top: 20px;
@@ -109,18 +110,18 @@ content {
       flex: 0 1 95%;
       font-size: 2em; } }
 
-.gymCardTitle {
-  font-size: 1em;
-  margin: 0 auto; }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
-    .gymCardTitle {
-      font-size: 2em; } }
+.separator {
+  flex: 0 0 100%;
+  color: black; }
+  .separator p {
+    font-size: 18px;
+    margin: 18px 0px 5px 0px; }
 
-.gymCardText {
-  padding: 5px;
-  text-align: left; }
-  @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
-    .gymCardText {
-      font-size: 2em; } }
+hr {
+  border: 0;
+  height: 0;
+  margin: 0px 0px 8px 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
 
 /*# sourceMappingURL=app.css.map */
