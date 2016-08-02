@@ -22,7 +22,7 @@ import Drawer from 'material-ui/Drawer';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-
+import FontIcon from 'material-ui/FontIcon';
 
 injectTapEventPlugin();
 
@@ -88,7 +88,9 @@ var SearchBar = React.createClass({
 var FilterableGymClassTable = React.createClass({
 		getInitialState: function() {
 				return {
-
+            haveLocation: false,
+            userLatitude: '',
+            userLongitude: '',
 						filteredGym: '',
 						filterText: '',
             filterDateBefore: moment().endOf('day'), 
@@ -96,8 +98,7 @@ var FilterableGymClassTable = React.createClass({
             filterTimeAfter: moment({h:0, m:0, s:0}),
             filterTimeBefore: moment({h: 23, m:59, s:59}),
             gymclass: [],
-				    url: "http://localhost:9000/?limit=100",
-            baseUrl: "http://localhost:9000/?limit=100"
+				    url: "http://localhost:9000/class/?limit=100",
         };
 		},
 
@@ -116,10 +117,19 @@ var FilterableGymClassTable = React.createClass({
 		    }); 
 		},
 
-    componentDidUpdate: function() {
+    gotGeoLocation: function(position){
+        this.setState({
+            haveLocation: true,
+            userLatitude: position.coords.latitude,
+            userLongitude: position.coords.longitude});
     },
 
 		componentDidMount: function() {
+        navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
+            function() {
+                this.setState({haveLocation: false})
+            })
+
             var url = this.state.url.concat("&gym=",
                                             this.state.filteredGym,
                                             "&name=",
@@ -147,7 +157,6 @@ var FilterableGymClassTable = React.createClass({
         }
 
         this.setState(input, function() {
-
             // Prepare the datetime
             var beforeDateTime = moment({
                 'year': this.state.filterDateBefore.year(),
@@ -208,6 +217,9 @@ var FilterableGymClassTable = React.createClass({
                     <div>
 								        <GymClassTable
                             gymclass={this.state.gymclass}
+                            haveLocation={this.state.haveLocation}
+                            userLatitude={this.state.userLatitude}
+                            userLongitude={this.state.userLongitude}
                         />
 								    </div>
 								</div>
@@ -366,7 +378,12 @@ var GymClassTable = React.createClass({
                     currentDay = moment(gymclass.startdatetime)
                     rows.push(<GymClassDaySeparator day={currentDay.format("dddd")}/>)
                 }
-		            rows.push(<GymClassRow gymclass={gymclass} key={index}/>);
+		            rows.push(<GymClassRow
+                              gymclass={gymclass}
+                              haveLocation={this.props.haveLocation}
+                              userLatitude={this.props.userLatitude}
+                              userLongitude={this.props.userLongitude}
+                              key={index}/>);
 						}.bind(this));
 				} else {
 						rows = [];
@@ -397,12 +414,51 @@ var GymClassDaySeparator = React.createClass({
 
 
 var GymClassRow = React.createClass({
+    getInitialState: function() {
+        return {
+            expanded: false,
+            drivingTime: ''
+        };
+    },
+
+    updateDriveTime: function(t) {
+        console.log("driving time is: " + t);
+        this.setState({
+            drivingTime: t,
+            expanded: true
+        })
+    },
+
+    handleExpandChange:  function() {
+        console.log("Triggered handleExpandChange")
+        if (this.expanded)
+            {
+                this.setState({expanded: false})
+            } else {
+                var url = "http://localhost:9000/traveltime/".concat(
+                    "?origin=",
+                    this.props.userLatitude,
+                    ",",
+                    this.props.userLongitude,
+                    "&destination=",
+                    this.props.gymclass.latlong);
+
+                fetch(url).then(function(response) {
+                    return response.text();
+                }).then(function(t) {
+                    this.updateDrivetime(t)
+                }).catch(function(t){
+                    console.log("Failed to get traveltime" + t)
+                }).bind(this)
+            }
+    },
 
 		render: function() {
-				return (
+        console.log("have location? " + this.props.haveLocation)
+        return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-								    <Card className="gymCard" >
-								        <CardHeader
+								<Card className="gymCard" onExpandChange={this.handleExpandChange} >
+								    <CardHeader
                             titleStyle={{
                                 fontSize:'1.2em',
                             }}
@@ -412,7 +468,9 @@ var GymClassRow = React.createClass({
                             avatar= {<Avatar size={40} backgroundColor={pink400}>{this.props.gymclass.gym.toUpperCase().charAt(0)}</Avatar>}
                             title={this.props.gymclass.name.toLowerCase()}
                             subtitle={this.props.gymclass.gym.toLowerCase()}
-                        />
+            actAsExpander={true}
+            showExpandableButton={true}
+                />
                         <CardText
                             style={{
                                 fontSize:'1em',
@@ -422,8 +480,12 @@ var GymClassRow = React.createClass({
                             {this.props.gymclass.location.toLowerCase()} <br/>
                             {moment(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase()} <br/>
                             {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes
-                        </CardText>
-                    </Card>
+            </CardText>
+                <CardText expandable={true}>
+                    {this.state.drivingTime} minutes
+                    <FontIcon className="material-icons" >directions_car</FontIcon>
+                </CardText>
+                </Card>
                 </MuiThemeProvider>
         )
     }
@@ -433,4 +495,5 @@ ReactDOM.render(
         <FilterableGymClassTable />,
     document.getElementById('content')
 );
+
 

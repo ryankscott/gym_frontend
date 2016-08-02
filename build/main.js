@@ -122,13 +122,15 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
+	var _FontIcon = __webpack_require__(507);
+
+	var _FontIcon2 = _interopRequireDefault(_FontIcon);
+
 	var _colors = __webpack_require__(457);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// TODO: Fix UTCOffset(0) 
-
-	(0, _reactTapEventPlugin2.default)();
+	(0, _reactTapEventPlugin2.default)(); // TODO: Fix UTCOffset(0) 
 
 	String.prototype.toTitleCase = function () {
 	    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
@@ -190,7 +192,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-
+	            haveLocation: false,
+	            userLatitude: '',
+	            userLongitude: '',
 	            filteredGym: '',
 	            filterText: '',
 	            filterDateBefore: (0, _moment2.default)().endOf('day'),
@@ -198,8 +202,7 @@
 	            filterTimeAfter: (0, _moment2.default)({ h: 0, m: 0, s: 0 }),
 	            filterTimeBefore: (0, _moment2.default)({ h: 23, m: 59, s: 59 }),
 	            gymclass: [],
-	            url: "http://localhost:9000/?limit=100",
-	            baseUrl: "http://localhost:9000/?limit=100"
+	            url: "http://localhost:9000/class/?limit=100"
 	        };
 	    },
 
@@ -217,9 +220,18 @@
 	        });
 	    },
 
-	    componentDidUpdate: function componentDidUpdate() {},
+	    gotGeoLocation: function gotGeoLocation(position) {
+	        this.setState({
+	            haveLocation: true,
+	            userLatitude: position.coords.latitude,
+	            userLongitude: position.coords.longitude });
+	    },
 
 	    componentDidMount: function componentDidMount() {
+	        navigator.geolocation.getCurrentPosition(this.gotGeoLocation, function () {
+	            this.setState({ haveLocation: false });
+	        });
+
 	        var url = this.state.url.concat("&gym=", this.state.filteredGym, "&name=", this.state.filterText, "&before=", encodeURIComponent(this.state.filterDateBefore.format("YYYY-MM-DDTHH:mm:ssZ")), "&after=", encodeURIComponent(this.state.filterDateAfter.format("YYYY-MM-DDTHH:mm:ssZ")));
 	        this.getClasses(url);
 	    },
@@ -240,7 +252,6 @@
 	        }
 
 	        this.setState(input, function () {
-
 	            // Prepare the datetime
 	            var beforeDateTime = (0, _moment2.default)({
 	                'year': this.state.filterDateBefore.year(),
@@ -296,7 +307,10 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(GymClassTable, {
-	                    gymclass: this.state.gymclass
+	                    gymclass: this.state.gymclass,
+	                    haveLocation: this.state.haveLocation,
+	                    userLatitude: this.state.userLatitude,
+	                    userLongitude: this.state.userLongitude
 	                })
 	            )
 	        );
@@ -463,7 +477,12 @@
 	                    currentDay = (0, _moment2.default)(gymclass.startdatetime);
 	                    rows.push(_react2.default.createElement(GymClassDaySeparator, { day: currentDay.format("dddd") }));
 	                }
-	                rows.push(_react2.default.createElement(GymClassRow, { gymclass: gymclass, key: index }));
+	                rows.push(_react2.default.createElement(GymClassRow, {
+	                    gymclass: gymclass,
+	                    haveLocation: this.props.haveLocation,
+	                    userLatitude: this.props.userLatitude,
+	                    userLongitude: this.props.userLongitude,
+	                    key: index }));
 	            }.bind(this));
 	        } else {
 	            rows = [];
@@ -508,14 +527,46 @@
 	var GymClassRow = _react2.default.createClass({
 	    displayName: 'GymClassRow',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            expanded: false,
+	            drivingTime: ''
+	        };
+	    },
+
+	    updateDriveTime: function updateDriveTime(t) {
+	        console.log("driving time is: " + t);
+	        this.setState({
+	            drivingTime: t,
+	            expanded: true
+	        });
+	    },
+
+	    handleExpandChange: function handleExpandChange() {
+	        console.log("Triggered handleExpandChange");
+	        if (this.expanded) {
+	            this.setState({ expanded: false });
+	        } else {
+	            var url = "http://localhost:9000/traveltime/".concat("?origin=", this.props.userLatitude, ",", this.props.userLongitude, "&destination=", this.props.gymclass.latlong);
+
+	            fetch(url).then(function (response) {
+	                return response.text();
+	            }).then(function (t) {
+	                this.updateDrivetime(t);
+	            }).catch(function (t) {
+	                console.log("Failed to get traveltime" + t);
+	            }).bind(this);
+	        }
+	    },
 
 	    render: function render() {
+	        console.log("have location? " + this.props.haveLocation);
 	        return _react2.default.createElement(
 	            _MuiThemeProvider2.default,
 	            { muiTheme: (0, _getMuiTheme2.default)() },
 	            _react2.default.createElement(
 	                _Card.Card,
-	                { className: 'gymCard' },
+	                { className: 'gymCard', onExpandChange: this.handleExpandChange },
 	                _react2.default.createElement(_Card.CardHeader, {
 	                    titleStyle: {
 	                        fontSize: '1.2em'
@@ -529,7 +580,9 @@
 	                        this.props.gymclass.gym.toUpperCase().charAt(0)
 	                    ),
 	                    title: this.props.gymclass.name.toLowerCase(),
-	                    subtitle: this.props.gymclass.gym.toLowerCase()
+	                    subtitle: this.props.gymclass.gym.toLowerCase(),
+	                    actAsExpander: true,
+	                    showExpandableButton: true
 	                }),
 	                _react2.default.createElement(
 	                    _Card.CardText,
@@ -547,6 +600,17 @@
 	                    _react2.default.createElement('br', null),
 	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
 	                    ' minutes'
+	                ),
+	                _react2.default.createElement(
+	                    _Card.CardText,
+	                    { expandable: true },
+	                    this.state.drivingTime,
+	                    ' minutes',
+	                    _react2.default.createElement(
+	                        _FontIcon2.default,
+	                        { className: 'material-icons' },
+	                        'directions_car'
+	                    )
 	                )
 	            )
 	        );
