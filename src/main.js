@@ -125,11 +125,11 @@ var FilterableGymClassTable = React.createClass({
     },
 
 		componentDidMount: function() {
-        navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
-            function() {
-                this.setState({haveLocation: false})
-            })
-
+        /* navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
+         *     function() {
+         *         this.setState({haveLocation: false})
+         *     })
+         */
             var url = this.state.url.concat("&gym=",
                                             this.state.filteredGym,
                                             "&name=",
@@ -421,43 +421,42 @@ var GymClassRow = React.createClass({
         };
     },
 
-    updateDriveTime: function(t) {
-        console.log("driving time is: " + t);
-        this.setState({
-            drivingTime: t,
-            expanded: true
-        })
-    },
+    /* updateDriveTime: function(t) {
+     *     console.log("driving time is: " + t);
+     *     this.setState({
+     *         drivingTime: t,
+     *         expanded: true
+     *     })
+     * },
 
-    handleExpandChange:  function() {
-        console.log("Triggered handleExpandChange")
-        if (this.expanded)
-            {
-                this.setState({expanded: false})
-            } else {
-                var url = "http://localhost:9000/traveltime/".concat(
-                    "?origin=",
-                    this.props.userLatitude,
-                    ",",
-                    this.props.userLongitude,
-                    "&destination=",
-                    this.props.gymclass.latlong);
+     * handleExpandChange:  function() {
+     *     console.log("Triggered handleExpandChange")
+     *     if (this.expanded)
+     *         {
+     *             this.setState({expanded: false})
+     *         } else {
+     *             var url = "http://localhost:9000/traveltime/".concat(
+     *                 "?origin=",
+     *                 this.props.userLatitude,
+     *                 ",",
+     *                 this.props.userLongitude,
+     *                 "&destination=",
+     *                 this.props.gymclass.latlong);
 
-                fetch(url).then(function(response) {
-                    return response.text();
-                }).then(function(t) {
-                    this.updateDrivetime(t)
-                }).catch(function(t){
-                    console.log("Failed to get traveltime" + t)
-                }).bind(this)
-            }
-    },
-
+     *             fetch(url).then(function(response) {
+     *                 return response.text();
+     *             }).then(function(t) {
+     *                 this.updateDrivetime(t)
+     *             }).catch(function(t){
+     *                 console.log("Failed to get traveltime" + t)
+     *             }).bind(this)
+     *         }
+     * },
+     */
 		render: function() {
-        console.log("have location? " + this.props.haveLocation)
         return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-								<Card className="gymCard" onExpandChange={this.handleExpandChange} >
+								<Card className="gymCard" >
 								    <CardHeader
                             titleStyle={{
                                 fontSize:'1.2em',
@@ -468,8 +467,7 @@ var GymClassRow = React.createClass({
                             avatar= {<Avatar size={40} backgroundColor={pink400}>{this.props.gymclass.gym.toUpperCase().charAt(0)}</Avatar>}
                             title={this.props.gymclass.name.toLowerCase()}
                             subtitle={this.props.gymclass.gym.toLowerCase()}
-            actAsExpander={true}
-            showExpandableButton={true}
+            showExpandableButton={false}
                 />
                         <CardText
                             style={{
@@ -481,10 +479,6 @@ var GymClassRow = React.createClass({
                             {moment(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase()} <br/>
                             {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes
             </CardText>
-                <CardText expandable={true}>
-                    {this.state.drivingTime} minutes
-                    <FontIcon className="material-icons" >directions_car</FontIcon>
-                </CardText>
                 </Card>
                 </MuiThemeProvider>
         )

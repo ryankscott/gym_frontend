@@ -228,10 +228,11 @@
 	    },
 
 	    componentDidMount: function componentDidMount() {
-	        navigator.geolocation.getCurrentPosition(this.gotGeoLocation, function () {
-	            this.setState({ haveLocation: false });
-	        });
-
+	        /* navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
+	         *     function() {
+	         *         this.setState({haveLocation: false})
+	         *     })
+	         */
 	        var url = this.state.url.concat("&gym=", this.state.filteredGym, "&name=", this.state.filterText, "&before=", encodeURIComponent(this.state.filterDateBefore.format("YYYY-MM-DDTHH:mm:ssZ")), "&after=", encodeURIComponent(this.state.filterDateAfter.format("YYYY-MM-DDTHH:mm:ssZ")));
 	        this.getClasses(url);
 	    },
@@ -534,39 +535,43 @@
 	        };
 	    },
 
-	    updateDriveTime: function updateDriveTime(t) {
-	        console.log("driving time is: " + t);
-	        this.setState({
-	            drivingTime: t,
-	            expanded: true
-	        });
-	    },
-
-	    handleExpandChange: function handleExpandChange() {
-	        console.log("Triggered handleExpandChange");
-	        if (this.expanded) {
-	            this.setState({ expanded: false });
-	        } else {
-	            var url = "http://localhost:9000/traveltime/".concat("?origin=", this.props.userLatitude, ",", this.props.userLongitude, "&destination=", this.props.gymclass.latlong);
-
-	            fetch(url).then(function (response) {
-	                return response.text();
-	            }).then(function (t) {
-	                this.updateDrivetime(t);
-	            }).catch(function (t) {
-	                console.log("Failed to get traveltime" + t);
-	            }).bind(this);
-	        }
-	    },
-
+	    /* updateDriveTime: function(t) {
+	     *     console.log("driving time is: " + t);
+	     *     this.setState({
+	     *         drivingTime: t,
+	     *         expanded: true
+	     *     })
+	     * },
+	      * handleExpandChange:  function() {
+	     *     console.log("Triggered handleExpandChange")
+	     *     if (this.expanded)
+	     *         {
+	     *             this.setState({expanded: false})
+	     *         } else {
+	     *             var url = "http://localhost:9000/traveltime/".concat(
+	     *                 "?origin=",
+	     *                 this.props.userLatitude,
+	     *                 ",",
+	     *                 this.props.userLongitude,
+	     *                 "&destination=",
+	     *                 this.props.gymclass.latlong);
+	      *             fetch(url).then(function(response) {
+	     *                 return response.text();
+	     *             }).then(function(t) {
+	     *                 this.updateDrivetime(t)
+	     *             }).catch(function(t){
+	     *                 console.log("Failed to get traveltime" + t)
+	     *             }).bind(this)
+	     *         }
+	     * },
+	     */
 	    render: function render() {
-	        console.log("have location? " + this.props.haveLocation);
 	        return _react2.default.createElement(
 	            _MuiThemeProvider2.default,
 	            { muiTheme: (0, _getMuiTheme2.default)() },
 	            _react2.default.createElement(
 	                _Card.Card,
-	                { className: 'gymCard', onExpandChange: this.handleExpandChange },
+	                { className: 'gymCard' },
 	                _react2.default.createElement(_Card.CardHeader, {
 	                    titleStyle: {
 	                        fontSize: '1.2em'
@@ -581,8 +586,7 @@
 	                    ),
 	                    title: this.props.gymclass.name.toLowerCase(),
 	                    subtitle: this.props.gymclass.gym.toLowerCase(),
-	                    actAsExpander: true,
-	                    showExpandableButton: true
+	                    showExpandableButton: false
 	                }),
 	                _react2.default.createElement(
 	                    _Card.CardText,
@@ -600,17 +604,6 @@
 	                    _react2.default.createElement('br', null),
 	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
 	                    ' minutes'
-	                ),
-	                _react2.default.createElement(
-	                    _Card.CardText,
-	                    { expandable: true },
-	                    this.state.drivingTime,
-	                    ' minutes',
-	                    _react2.default.createElement(
-	                        _FontIcon2.default,
-	                        { className: 'material-icons' },
-	                        'directions_car'
-	                    )
 	                )
 	            )
 	        );
