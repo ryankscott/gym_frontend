@@ -228,11 +228,10 @@
 	    },
 
 	    componentDidMount: function componentDidMount() {
-	        /* navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
-	         *     function() {
-	         *         this.setState({haveLocation: false})
-	         *     })
-	         */
+	        navigator.geolocation.getCurrentPosition(this.gotGeoLocation, function () {
+	            this.setState({ haveLocation: false });
+	        }.bind(this));
+
 	        var url = this.state.url.concat("&gym=", this.state.filteredGym, "&name=", this.state.filterText, "&before=", encodeURIComponent(this.state.filterDateBefore.format("YYYY-MM-DDTHH:mm:ssZ")), "&after=", encodeURIComponent(this.state.filterDateAfter.format("YYYY-MM-DDTHH:mm:ssZ")));
 	        this.getClasses(url);
 	    },
@@ -246,7 +245,10 @@
 	        // Good luck debugging this future me
 	        // I'm trying to merge these two objects, input should have the things that change and state the current state
 	        // If we have the attribute in the state, but not in the input then copy it to the input
+
+	        // TODO: Fix the bug here when the search is empty
 	        for (var attrname in this.state) {
+	            //console.log("attribute: " + attrname + " state: " + this.state[attrname] + " input: " + input[attrname]);
 	            if (this.state[attrname] && !input[attrname]) {
 	                input[attrname] = this.state[attrname];
 	            }
@@ -535,43 +537,38 @@
 	        };
 	    },
 
-	    /* updateDriveTime: function(t) {
-	     *     console.log("driving time is: " + t);
-	     *     this.setState({
-	     *         drivingTime: t,
-	     *         expanded: true
-	     *     })
-	     * },
-	      * handleExpandChange:  function() {
-	     *     console.log("Triggered handleExpandChange")
-	     *     if (this.expanded)
-	     *         {
-	     *             this.setState({expanded: false})
-	     *         } else {
-	     *             var url = "http://localhost:9000/traveltime/".concat(
-	     *                 "?origin=",
-	     *                 this.props.userLatitude,
-	     *                 ",",
-	     *                 this.props.userLongitude,
-	     *                 "&destination=",
-	     *                 this.props.gymclass.latlong);
-	      *             fetch(url).then(function(response) {
-	     *                 return response.text();
-	     *             }).then(function(t) {
-	     *                 this.updateDrivetime(t)
-	     *             }).catch(function(t){
-	     *                 console.log("Failed to get traveltime" + t)
-	     *             }).bind(this)
-	     *         }
-	     * },
-	     */
+	    updateDriveTime: function updateDriveTime(t) {
+	        this.setState({
+	            drivingTime: t,
+	            expanded: false
+	        });
+	    },
+
+	    handleExpandChange: function handleExpandChange() {
+	        if (this.state.expanded) {
+	            this.setState({ expanded: false });
+	        } else {
+	            var url = "http://localhost:9000/traveltime/".concat("?origin=", this.props.userLatitude, ",", this.props.userLongitude, "&destination=", this.props.gymclass.latlong);
+
+	            fetch(url).then(function (response) {
+	                return response.text();
+	            }).then(function (t) {
+	                this.updateDriveTime(t);
+	            }.bind(this));
+	        }
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            _MuiThemeProvider2.default,
 	            { muiTheme: (0, _getMuiTheme2.default)() },
 	            _react2.default.createElement(
 	                _Card.Card,
-	                { className: 'gymCard' },
+	                {
+	                    className: 'gymCard',
+	                    expandable: this.props.haveLocation,
+	                    initiallyExpanded: false,
+	                    onExpandChange: this.handleExpandChange
+	                },
 	                _react2.default.createElement(_Card.CardHeader, {
 	                    titleStyle: {
 	                        fontSize: '1.2em'
@@ -586,7 +583,7 @@
 	                    ),
 	                    title: this.props.gymclass.name.toLowerCase(),
 	                    subtitle: this.props.gymclass.gym.toLowerCase(),
-	                    showExpandableButton: false
+	                    showExpandableButton: this.props.haveLocation
 	                }),
 	                _react2.default.createElement(
 	                    _Card.CardText,
@@ -604,6 +601,28 @@
 	                    _react2.default.createElement('br', null),
 	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
 	                    ' minutes'
+	                ),
+	                _react2.default.createElement(
+	                    _Card.CardText,
+	                    {
+	                        expandable: true,
+	                        style: {
+	                            fontStyle: 'italic',
+	                            fontSize: '0.8em',
+	                            padding: '0px 16px 16px 16px'
+	                        }
+	                    },
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            _FontIcon2.default,
+	                            { className: 'material-icons' },
+	                            'directions_car'
+	                        ),
+	                        this.state.drivingTime,
+	                        ' minutes drive'
+	                    )
 	                )
 	            )
 	        );

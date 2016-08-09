@@ -125,11 +125,11 @@ var FilterableGymClassTable = React.createClass({
     },
 
 		componentDidMount: function() {
-        /* navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
-         *     function() {
-         *         this.setState({haveLocation: false})
-         *     })
-         */
+        navigator.geolocation.getCurrentPosition(this.gotGeoLocation,
+                                                 function() {
+                                                     this.setState({haveLocation: false})
+                                                 }.bind(this))
+
             var url = this.state.url.concat("&gym=",
                                             this.state.filteredGym,
                                             "&name=",
@@ -150,7 +150,10 @@ var FilterableGymClassTable = React.createClass({
         // Good luck debugging this future me
         // I'm trying to merge these two objects, input should have the things that change and state the current state
         // If we have the attribute in the state, but not in the input then copy it to the input
+
+        // TODO: Fix the bug here when the search is empty
         for (var attrname in this.state) {
+            //console.log("attribute: " + attrname + " state: " + this.state[attrname] + " input: " + input[attrname]);
             if (this.state[attrname] && !input[attrname]){
                 input[attrname] = this.state[attrname];
             }
@@ -165,7 +168,7 @@ var FilterableGymClassTable = React.createClass({
                 'hour': this.state.filterTimeBefore.hour(),
                 'minute': this.state.filterTimeBefore.minute(),
                 'second': this.state.filterTimeBefore.second()
-            })
+            });
 
             var afterDateTime = moment({
                 'year': this.state.filterDateAfter.year(),
@@ -174,7 +177,7 @@ var FilterableGymClassTable = React.createClass({
                 'hour': this.state.filterTimeAfter.hour(),
                 'minute': this.state.filterTimeAfter.minute(),
                 'second': this.state.filterTimeAfter.second()
-            })
+            });
 
 
             var url = this.state.url.concat("&gym=",
@@ -421,42 +424,41 @@ var GymClassRow = React.createClass({
         };
     },
 
-    /* updateDriveTime: function(t) {
-     *     console.log("driving time is: " + t);
-     *     this.setState({
-     *         drivingTime: t,
-     *         expanded: true
-     *     })
-     * },
+    updateDriveTime: function(t) {
+           this.setState({
+               drivingTime: t,
+               expanded: false
+           });
+       },
 
-     * handleExpandChange:  function() {
-     *     console.log("Triggered handleExpandChange")
-     *     if (this.expanded)
-     *         {
-     *             this.setState({expanded: false})
-     *         } else {
-     *             var url = "http://localhost:9000/traveltime/".concat(
-     *                 "?origin=",
-     *                 this.props.userLatitude,
-     *                 ",",
-     *                 this.props.userLongitude,
-     *                 "&destination=",
-     *                 this.props.gymclass.latlong);
+       handleExpandChange:  function() {
+           if (this.state.expanded)
+               { this.setState({expanded: false});
+               } else {
+                   var url = "http://localhost:9000/traveltime/".concat(
+                       "?origin=",
+                       this.props.userLatitude,
+                       ",",
+                       this.props.userLongitude,
+                       "&destination=",
+                       this.props.gymclass.latlong);
 
-     *             fetch(url).then(function(response) {
-     *                 return response.text();
-     *             }).then(function(t) {
-     *                 this.updateDrivetime(t)
-     *             }).catch(function(t){
-     *                 console.log("Failed to get traveltime" + t)
-     *             }).bind(this)
-     *         }
-     * },
-     */
+                   fetch(url).then(function(response) {
+                       return response.text();
+                   }).then(function(t) {
+                      this.updateDriveTime(t);
+                   }.bind(this));
+               }
+       },
 		render: function() {
         return (
 								<MuiThemeProvider muiTheme={getMuiTheme()} >
-								<Card className="gymCard" >
+								    <Card
+                        className="gymCard"
+                        expandable={this.props.haveLocation}
+                        initiallyExpanded={false}
+                        onExpandChange={this.handleExpandChange}
+                >
 								    <CardHeader
                             titleStyle={{
                                 fontSize:'1.2em',
@@ -466,19 +468,34 @@ var GymClassRow = React.createClass({
                             }}
                             avatar= {<Avatar size={40} backgroundColor={pink400}>{this.props.gymclass.gym.toUpperCase().charAt(0)}</Avatar>}
                             title={this.props.gymclass.name.toLowerCase()}
-                            subtitle={this.props.gymclass.gym.toLowerCase()}
-            showExpandableButton={false}
+                        subtitle={this.props.gymclass.gym.toLowerCase()}
+                        showExpandableButton={this.props.haveLocation}
                 />
                         <CardText
                             style={{
                                 fontSize:'1em',
                                 padding:'0px 16px 16px 16px'
                             }}
-                        >
+                > 
                             {this.props.gymclass.location.toLowerCase()} <br/>
                             {moment(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase()} <br/>
                             {moment.duration(moment(this.props.gymclass.enddatetime).diff(moment(this.props.gymclass.startdatetime))).asMinutes()} minutes
-            </CardText>
+                        </CardText>
+                        <CardText
+                            expandable={true}
+                            style={{
+                                fontStyle:'italic',
+                                fontSize:'0.8em',
+                                padding:'0px 16px 16px 16px'
+                            }}
+                        >
+                            <div>
+                            <FontIcon className="material-icons">
+                                directions_car
+                            </FontIcon>
+                            {this.state.drivingTime} minutes drive
+                            </div>
+                        </CardText>
                 </Card>
                 </MuiThemeProvider>
         )
