@@ -539,7 +539,7 @@
 
 	    updateDriveTime: function updateDriveTime(t) {
 	        this.setState({
-	            drivingTime: t,
+	            drivingTime: t + " minutes drive",
 	            expanded: false
 	        });
 	    },
@@ -620,8 +620,7 @@
 	                            { className: 'material-icons' },
 	                            'directions_car'
 	                        ),
-	                        this.state.drivingTime,
-	                        ' minutes drive'
+	                        this.state.drivingTime
 	                    )
 	                )
 	            )

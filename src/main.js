@@ -426,7 +426,7 @@ var GymClassRow = React.createClass({
 
     updateDriveTime: function(t) {
            this.setState({
-               drivingTime: t,
+               drivingTime: t + " minutes drive",
                expanded: false
            });
        },
@@ -493,7 +493,7 @@ var GymClassRow = React.createClass({
                             <FontIcon className="material-icons">
                                 directions_car
                             </FontIcon>
-                            {this.state.drivingTime} minutes drive
+                            {this.state.drivingTime}
                             </div>
                         </CardText>
                 </Card>
