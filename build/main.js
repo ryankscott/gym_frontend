@@ -64,14 +64,6 @@
 
 	__webpack_require__(277);
 
-	var _FlatButton = __webpack_require__(278);
-
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-	var _SelectField = __webpack_require__(304);
-
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-
 	var _getMuiTheme = __webpack_require__(340);
 
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
@@ -80,111 +72,47 @@
 
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-	var _Card = __webpack_require__(513);
-
-	var _MenuItem = __webpack_require__(525);
-
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
 	var _reactTapEventPlugin = __webpack_require__(526);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
-	var _AppBar = __webpack_require__(532);
+	var _searchbar = __webpack_require__(542);
 
-	var _AppBar2 = _interopRequireDefault(_AppBar);
+	var _searchbar2 = _interopRequireDefault(_searchbar);
 
-	var _IconButton = __webpack_require__(505);
+	var _timeselect = __webpack_require__(543);
 
-	var _IconButton2 = _interopRequireDefault(_IconButton);
+	var _timeselect2 = _interopRequireDefault(_timeselect);
 
-	var _search = __webpack_require__(535);
+	var _dayselect = __webpack_require__(544);
 
-	var _search2 = _interopRequireDefault(_search);
+	var _dayselect2 = _interopRequireDefault(_dayselect);
 
-	var _TextField = __webpack_require__(306);
+	var _gymselect = __webpack_require__(545);
 
-	var _TextField2 = _interopRequireDefault(_TextField);
+	var _gymselect2 = _interopRequireDefault(_gymselect);
 
-	var _Drawer = __webpack_require__(536);
+	var _gymclassdayseparator = __webpack_require__(546);
 
-	var _Drawer2 = _interopRequireDefault(_Drawer);
+	var _gymclassdayseparator2 = _interopRequireDefault(_gymclassdayseparator);
 
-	var _Avatar = __webpack_require__(519);
+	var _gymclasstable = __webpack_require__(547);
 
-	var _Avatar2 = _interopRequireDefault(_Avatar);
+	var _gymclasstable2 = _interopRequireDefault(_gymclasstable);
 
-	var _Divider = __webpack_require__(540);
+	var _navbar = __webpack_require__(549);
 
-	var _Divider2 = _interopRequireDefault(_Divider);
-
-	var _Paper = __webpack_require__(495);
-
-	var _Paper2 = _interopRequireDefault(_Paper);
-
-	var _FontIcon = __webpack_require__(507);
-
-	var _FontIcon2 = _interopRequireDefault(_FontIcon);
-
-	var _colors = __webpack_require__(457);
+	var _navbar2 = _interopRequireDefault(_navbar);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _reactTapEventPlugin2.default)(); // TODO: Fix UTCOffset(0) 
+	(0, _reactTapEventPlugin2.default)();
 
 	String.prototype.toTitleCase = function () {
 	    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 	};
 
-	var NavBar = _react2.default.createClass({
-	    displayName: 'NavBar',
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(_AppBar2.default, {
-	                showMenuIconButton: false,
-	                iconElementLeft: _react2.default.createElement(
-	                    _IconButton2.default,
-	                    null,
-	                    _react2.default.createElement(_search2.default, null)
-	                ),
-	                title: 'Gym Search',
-	                className: 'navBar' })
-	        );
-	    }
-	});
-	_reactDom2.default.render(_react2.default.createElement(NavBar, null), document.getElementById('navbar'));
-
-	//SearchBar
-	var SearchBar = _react2.default.createClass({
-	    displayName: 'SearchBar',
-
-	    getInitialState: function getInitialState() {
-	        return { value: "" };
-	    },
-
-	    handleChange: _lodash2.default.debounce(function (event, index, value) {
-	        this.setState({ value: index });
-	        this.props.onUserInput({ filterText: index });
-	    }, 300),
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(_TextField2.default, {
-	                className: 'searchBar',
-	                hintText: 'Search for a class',
-	                onChange: this.handleChange,
-	                hintStyle: {
-	                    fontSize: '1em',
-	                    fontFamily: "Lato, sans-serif"
-	                }
-	            })
-	        );
-	    }
-	});
+	_reactDom2.default.render(_react2.default.createElement(_navbar2.default, null), document.getElementById('navbar'));
 
 	// FilterableGymClassTable
 	var FilterableGymClassTable = _react2.default.createClass({
@@ -245,11 +173,8 @@
 	        // Good luck debugging this future me
 	        // I'm trying to merge these two objects, input should have the things that change and state the current state
 	        // If we have the attribute in the state, but not in the input then copy it to the input
-
-	        // TODO: Fix the bug here when the search is empty
 	        for (var attrname in this.state) {
-	            //console.log("attribute: " + attrname + " state: " + this.state[attrname] + " input: " + input[attrname]);
-	            if (this.state[attrname] && !input[attrname]) {
+	            if (this.state[attrname] && !input[attrname] && input[attrname] != "") {
 	                input[attrname] = this.state[attrname];
 	            }
 	        }
@@ -286,21 +211,21 @@
 	            _react2.default.createElement(
 	                'div',
 	                { id: 'filterBar' },
-	                _react2.default.createElement(SearchBar, {
+	                _react2.default.createElement(_searchbar2.default, {
 	                    filterText: this.state.filterText,
 	                    onUserInput: this.handleChange
 	                }),
-	                _react2.default.createElement(GymSelect, {
+	                _react2.default.createElement(_gymselect2.default, {
 	                    filteredGym: this.state.filteredGym,
 	                    onUserInput: this.handleChange
 	                }),
-	                _react2.default.createElement(DaySelect, {
+	                _react2.default.createElement(_dayselect2.default, {
 	                    value: this.state.value,
 	                    filterDateBefore: this.state.filterDateBefore,
 	                    filterDateAfter: this.state.filterDateAfter,
 	                    onUserInput: this.handleChange
 	                }),
-	                _react2.default.createElement(TimeSelect, {
+	                _react2.default.createElement(_timeselect2.default, {
 	                    filterTimeBefore: this.state.filterTimeBefore,
 	                    filterTimeAfter: this.state.filterTimeAfter,
 	                    onUserInput: this.handleChange
@@ -309,320 +234,12 @@
 	            _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(GymClassTable, {
+	                _react2.default.createElement(_gymclasstable2.default, {
 	                    gymclass: this.state.gymclass,
 	                    haveLocation: this.state.haveLocation,
 	                    userLatitude: this.state.userLatitude,
 	                    userLongitude: this.state.userLongitude
 	                })
-	            )
-	        );
-	    }
-	});
-
-	var TimeSelect = _react2.default.createClass({
-	    displayName: 'TimeSelect',
-
-	    getInitialState: function getInitialState() {
-	        return { value: "" };
-	    },
-
-	    handleChange: function handleChange(event, index, value) {
-	        var before, after;
-	        switch (value) {
-	            case "":
-	                after = (0, _moment2.default)({ h: 0, m: 0, s: 0 });
-	                before = (0, _moment2.default)({ h: 23, m: 59, s: 59 });
-	                break;
-	            case "morning":
-	                after = (0, _moment2.default)({ h: 0, m: 0, s: 0 });
-	                before = (0, _moment2.default)({ h: 11, m: 59, s: 59 });
-	                break;
-	            case "afternoon":
-	                after = (0, _moment2.default)({ h: 12, m: 0, s: 0 });
-	                before = (0, _moment2.default)({ h: 15, m: 59, s: 59 });
-	                break;
-	            case "evening":
-	                after = (0, _moment2.default)({ h: 16, m: 0, s: 0 });
-	                before = (0, _moment2.default)({ h: 23, m: 59, s: 59 });
-	                break;
-
-	        }
-	        this.props.onUserInput({
-	            filterTimeAfter: after,
-	            filterTimeBefore: before });
-	        this.setState({ value: value });
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                    className: 'chooser',
-	                    value: this.state.value,
-	                    onChange: this.handleChange,
-	                    style: {
-	                        fontSize: '1em',
-	                        fontFamily: "Lato, sans-serif"
-	                    } },
-	                _react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'All day' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'morning', primaryText: 'Morning' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'afternoon', primaryText: 'Afternoon' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'evening', primaryText: 'Evening' })
-	            )
-	        );
-	    }
-	});
-
-	var DaySelect = _react2.default.createClass({
-	    displayName: 'DaySelect',
-
-	    getInitialState: function getInitialState() {
-	        return { value: "today" };
-	    },
-
-	    handleChange: function handleChange(event, index, value) {
-	        var before, after;
-	        switch (value) {
-	            case "today":
-	                after = (0, _moment2.default)();
-	                before = (0, _moment2.default)().endOf('day');
-	                break;
-	            case "tomorrow":
-	                after = (0, _moment2.default)().add(1, 'days').startOf('day');
-	                before = (0, _moment2.default)().add(1, 'days').endOf('day');
-	                break;
-	            case "thisWeek":
-	                after = (0, _moment2.default)();
-	                before = (0, _moment2.default)().add(1, 'weeks').endOf('day');
-	                break;
-	        }
-	        this.props.onUserInput({
-	            filterDateAfter: after,
-	            filterDateBefore: before });
-
-	        this.setState({ value: value });
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                    className: 'chooser',
-	                    value: this.state.value,
-	                    onChange: this.handleChange,
-	                    style: {
-	                        fontSize: '1em',
-	                        fontFamily: "Lato, sans-serif"
-	                    }
-	                },
-	                _react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'Any day' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'today', primaryText: 'Today' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'tomorrow', primaryText: 'Tomorrow' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'thisWeek', primaryText: 'This week' })
-	            )
-	        );
-	    }
-	});
-
-	var GymSelect = _react2.default.createClass({
-	    displayName: 'GymSelect',
-
-	    getInitialState: function getInitialState() {
-	        return { value: "" };
-	    },
-	    gymChange: function gymChange(event, index, value) {
-	        this.setState({ value: value });
-	        this.props.onUserInput({ filteredGym: value });
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(
-	                _SelectField2.default,
-	                { id: 'dropdown',
-	                    value: this.state.value,
-	                    onChange: this.gymChange,
-	                    className: 'chooser',
-	                    style: {
-	                        fontSize: '1em',
-	                        fontFamily: "Lato, sans-serif"
-	                    }
-	                },
-	                _react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'Any Gym' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'city', primaryText: 'City' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'britomart', primaryText: 'Britomart' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'takapuna', primaryText: 'Takapuna' }),
-	                _react2.default.createElement(_MenuItem2.default, { value: 'newmarket', primaryText: 'Newmarket' })
-	            )
-	        );
-	    }
-	});
-
-	// GymClassTable
-	var GymClassTable = _react2.default.createClass({
-	    displayName: 'GymClassTable',
-
-	    render: function render() {
-	        var rows = [];
-	        var currentDay = (0, _moment2.default)();
-	        if (this.props.gymclass != null) {
-	            this.props.gymclass.forEach(function (gymclass, index) {
-	                if ((0, _moment2.default)(gymclass.startdatetime).dayOfYear() != currentDay.dayOfYear()) {
-	                    currentDay = (0, _moment2.default)(gymclass.startdatetime);
-	                    rows.push(_react2.default.createElement(GymClassDaySeparator, { day: currentDay.format("dddd") }));
-	                }
-	                rows.push(_react2.default.createElement(GymClassRow, {
-	                    gymclass: gymclass,
-	                    haveLocation: this.props.haveLocation,
-	                    userLatitude: this.props.userLatitude,
-	                    userLongitude: this.props.userLongitude,
-	                    key: index }));
-	            }.bind(this));
-	        } else {
-	            rows = [];
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'listOfCards' },
-	            ' ',
-	            rows,
-	            ' '
-	        );
-	    }
-	});
-
-	var GymClassDaySeparator = _react2.default.createClass({
-	    displayName: 'GymClassDaySeparator',
-
-	    getInitialState: function getInitialState() {
-	        return {};
-	    },
-
-	    render: function render(props) {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'separator' },
-	                _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    ' ',
-	                    this.props.day,
-	                    '  '
-	                ),
-	                _react2.default.createElement('hr', null)
-	            )
-	        );
-	    }
-	});
-
-	var GymClassRow = _react2.default.createClass({
-	    displayName: 'GymClassRow',
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            expanded: false,
-	            drivingTime: ''
-	        };
-	    },
-
-	    updateDriveTime: function updateDriveTime(t) {
-	        this.setState({
-	            drivingTime: t + " minutes drive",
-	            expanded: false
-	        });
-	    },
-
-	    handleExpandChange: function handleExpandChange() {
-	        if (this.state.expanded) {
-	            this.setState({ expanded: false });
-	        } else {
-	            var url = "http://localhost:9000/traveltime/".concat("?origin=", this.props.userLatitude, ",", this.props.userLongitude, "&destination=", this.props.gymclass.latlong);
-
-	            fetch(url).then(function (response) {
-	                return response.text();
-	            }).then(function (t) {
-	                this.updateDriveTime(t);
-	            }.bind(this));
-	        }
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: (0, _getMuiTheme2.default)() },
-	            _react2.default.createElement(
-	                _Card.Card,
-	                {
-	                    className: 'gymCard',
-	                    expandable: this.props.haveLocation,
-	                    initiallyExpanded: false,
-	                    onExpandChange: this.handleExpandChange
-	                },
-	                _react2.default.createElement(_Card.CardHeader, {
-	                    titleStyle: {
-	                        fontSize: '1.2em'
-	                    },
-	                    subtitleStyle: {
-	                        fontSize: '.8em'
-	                    },
-	                    avatar: _react2.default.createElement(
-	                        _Avatar2.default,
-	                        { size: 40, backgroundColor: _colors.pink400 },
-	                        this.props.gymclass.gym.toUpperCase().charAt(0)
-	                    ),
-	                    title: this.props.gymclass.name.toLowerCase(),
-	                    subtitle: this.props.gymclass.gym.toLowerCase(),
-	                    showExpandableButton: this.props.haveLocation
-	                }),
-	                _react2.default.createElement(
-	                    _Card.CardText,
-	                    {
-	                        style: {
-	                            fontSize: '1em',
-	                            padding: '0px 16px 16px 16px'
-	                        }
-	                    },
-	                    this.props.gymclass.location.toLowerCase(),
-	                    ' ',
-	                    _react2.default.createElement('br', null),
-	                    (0, _moment2.default)(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase(),
-	                    ' ',
-	                    _react2.default.createElement('br', null),
-	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
-	                    ' minutes'
-	                ),
-	                _react2.default.createElement(
-	                    _Card.CardText,
-	                    {
-	                        expandable: true,
-	                        style: {
-	                            fontStyle: 'italic',
-	                            fontSize: '0.8em',
-	                            padding: '0px 16px 16px 16px'
-	                        }
-	                    },
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            _FontIcon2.default,
-	                            { className: 'material-icons' },
-	                            'directions_car'
-	                        ),
-	                        this.state.drivingTime
-	                    )
-	                )
 	            )
 	        );
 	    }
@@ -52561,342 +52178,8 @@
 
 
 /***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _FlatButton = __webpack_require__(279);
-
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _FlatButton2.default;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _simpleAssign = __webpack_require__(280);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _transitions = __webpack_require__(281);
-
-	var _transitions2 = _interopRequireDefault(_transitions);
-
-	var _childUtils = __webpack_require__(282);
-
-	var _colorManipulator = __webpack_require__(285);
-
-	var _EnhancedButton = __webpack_require__(286);
-
-	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
-
-	var _FlatButtonLabel = __webpack_require__(303);
-
-	var _FlatButtonLabel2 = _interopRequireDefault(_FlatButtonLabel);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function validateLabel(props, propName, componentName) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (!props.children && props.label !== 0 && !props.label && !props.icon) {
-	      return new Error('Required prop label or children or icon was not specified in ' + componentName + '.');
-	    }
-	  }
-	}
-
-	var FlatButton = function (_Component) {
-	  _inherits(FlatButton, _Component);
-
-	  function FlatButton() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, FlatButton);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(FlatButton)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      hovered: false,
-	      isKeyboardFocused: false,
-	      touch: false
-	    }, _this.handleKeyboardFocus = function (event, isKeyboardFocused) {
-	      _this.setState({ isKeyboardFocused: isKeyboardFocused });
-	      _this.props.onKeyboardFocus(event, isKeyboardFocused);
-	    }, _this.handleMouseEnter = function (event) {
-	      // Cancel hover styles for touch devices
-	      if (!_this.state.touch) _this.setState({ hovered: true });
-	      _this.props.onMouseEnter(event);
-	    }, _this.handleMouseLeave = function (event) {
-	      _this.setState({ hovered: false });
-	      _this.props.onMouseLeave(event);
-	    }, _this.handleTouchStart = function (event) {
-	      _this.setState({ touch: true });
-	      _this.props.onTouchStart(event);
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(FlatButton, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.disabled && this.state.hovered) {
-	        this.setState({
-	          hovered: false
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var children = _props.children;
-	      var disabled = _props.disabled;
-	      var hoverColor = _props.hoverColor;
-	      var backgroundColor = _props.backgroundColor;
-	      var icon = _props.icon;
-	      var label = _props.label;
-	      var labelStyle = _props.labelStyle;
-	      var labelPosition = _props.labelPosition;
-	      var primary = _props.primary;
-	      var rippleColor = _props.rippleColor;
-	      var secondary = _props.secondary;
-	      var style = _props.style;
-
-	      var other = _objectWithoutProperties(_props, ['children', 'disabled', 'hoverColor', 'backgroundColor', 'icon', 'label', 'labelStyle', 'labelPosition', 'primary', 'rippleColor', 'secondary', 'style']);
-
-	      var _context$muiTheme = this.context.muiTheme;
-	      var _context$muiTheme$but = _context$muiTheme.button;
-	      var buttonHeight = _context$muiTheme$but.height;
-	      var buttonMinWidth = _context$muiTheme$but.minWidth;
-	      var buttonTextTransform = _context$muiTheme$but.textTransform;
-	      var _context$muiTheme$fla = _context$muiTheme.flatButton;
-	      var buttonFilterColor = _context$muiTheme$fla.buttonFilterColor;
-	      var buttonColor = _context$muiTheme$fla.color;
-	      var disabledTextColor = _context$muiTheme$fla.disabledTextColor;
-	      var fontSize = _context$muiTheme$fla.fontSize;
-	      var fontWeight = _context$muiTheme$fla.fontWeight;
-	      var primaryTextColor = _context$muiTheme$fla.primaryTextColor;
-	      var secondaryTextColor = _context$muiTheme$fla.secondaryTextColor;
-	      var textColor = _context$muiTheme$fla.textColor;
-	      var _context$muiTheme$fla2 = _context$muiTheme$fla.textTransform;
-	      var textTransform = _context$muiTheme$fla2 === undefined ? buttonTextTransform || 'uppercase' : _context$muiTheme$fla2;
-
-	      var defaultTextColor = disabled ? disabledTextColor : primary ? primaryTextColor : secondary ? secondaryTextColor : textColor;
-
-	      var defaultHoverColor = (0, _colorManipulator.fade)(buttonFilterColor, 0.2);
-	      var defaultRippleColor = buttonFilterColor;
-	      var buttonHoverColor = hoverColor || defaultHoverColor;
-	      var buttonRippleColor = rippleColor || defaultRippleColor;
-	      var buttonBackgroundColor = backgroundColor || buttonColor;
-	      var hovered = (this.state.hovered || this.state.isKeyboardFocused) && !disabled;
-
-	      var mergedRootStyles = (0, _simpleAssign2.default)({}, {
-	        height: buttonHeight,
-	        lineHeight: buttonHeight + 'px',
-	        minWidth: buttonMinWidth,
-	        color: defaultTextColor,
-	        transition: _transitions2.default.easeOut(),
-	        borderRadius: 2,
-	        userSelect: 'none',
-	        position: 'relative',
-	        overflow: 'hidden',
-	        backgroundColor: hovered ? buttonHoverColor : buttonBackgroundColor,
-	        padding: 0,
-	        margin: 0,
-	        textAlign: 'center'
-	      }, style);
-
-	      var iconCloned = void 0;
-	      var labelStyleIcon = {};
-
-	      if (icon) {
-	        iconCloned = _react2.default.cloneElement(icon, {
-	          color: icon.props.color || mergedRootStyles.color,
-	          style: {
-	            verticalAlign: 'middle',
-	            marginLeft: label && labelPosition !== 'before' ? 12 : 0,
-	            marginRight: label && labelPosition === 'before' ? 12 : 0
-	          }
-	        });
-
-	        if (labelPosition === 'before') {
-	          labelStyleIcon.paddingRight = 8;
-	        } else {
-	          labelStyleIcon.paddingLeft = 8;
-	        }
-	      }
-
-	      var mergedLabelStyles = (0, _simpleAssign2.default)({
-	        letterSpacing: 0,
-	        textTransform: textTransform,
-	        fontWeight: fontWeight,
-	        fontSize: fontSize
-	      }, labelStyleIcon, labelStyle);
-
-	      var labelElement = label ? _react2.default.createElement(_FlatButtonLabel2.default, { label: label, style: mergedLabelStyles }) : undefined;
-
-	      // Place label before or after children.
-	      var childrenFragment = labelPosition === 'before' ? {
-	        labelElement: labelElement,
-	        iconCloned: iconCloned,
-	        children: children
-	      } : {
-	        children: children,
-	        iconCloned: iconCloned,
-	        labelElement: labelElement
-	      };
-
-	      var enhancedButtonChildren = (0, _childUtils.createChildFragment)(childrenFragment);
-
-	      return _react2.default.createElement(
-	        _EnhancedButton2.default,
-	        _extends({}, other, {
-	          disabled: disabled,
-	          focusRippleColor: buttonRippleColor,
-	          focusRippleOpacity: 0.3,
-	          onKeyboardFocus: this.handleKeyboardFocus,
-	          onMouseLeave: this.handleMouseLeave,
-	          onMouseEnter: this.handleMouseEnter,
-	          onTouchStart: this.handleTouchStart,
-	          style: mergedRootStyles,
-	          touchRippleColor: buttonRippleColor,
-	          touchRippleOpacity: 0.3
-	        }),
-	        enhancedButtonChildren
-	      );
-	    }
-	  }]);
-
-	  return FlatButton;
-	}(_react.Component);
-
-	FlatButton.muiName = 'FlatButton';
-	FlatButton.propTypes = {
-	  /**
-	   * Color of button when mouse is not hovering over it.
-	   */
-	  backgroundColor: _react.PropTypes.string,
-	  /**
-	   * This is what will be displayed inside the button.
-	   * If a label is specified, the text within the label prop will
-	   * be displayed. Otherwise, the component will expect children
-	   * which will then be displayed. (In our example,
-	   * we are nesting an `<input type="file" />` and a `span`
-	   * that acts as our label to be displayed.) This only
-	   * applies to flat and raised buttons.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * Disables the button if set to true.
-	   */
-	  disabled: _react.PropTypes.bool,
-	  /**
-	   * Color of button when mouse hovers over.
-	   */
-	  hoverColor: _react.PropTypes.string,
-	  /**
-	   * The URL to link to when the button is clicked.
-	   */
-	  href: _react.PropTypes.string,
-	  /**
-	   * Use this property to display an icon.
-	   */
-	  icon: _react.PropTypes.node,
-	  /**
-	   * Label for the button.
-	   */
-	  label: validateLabel,
-	  /**
-	   * Place label before or after the passed children.
-	   */
-	  labelPosition: _react.PropTypes.oneOf(['before', 'after']),
-	  /**
-	   * Override the inline-styles of the button's label element.
-	   */
-	  labelStyle: _react.PropTypes.object,
-	  /**
-	   * Callback function fired when the element is focused or blurred by the keyboard.
-	   *
-	   * @param {object} event `focus` or `blur` event targeting the element.
-	   * @param {boolean} isKeyboardFocused Indicates whether the element is focused.
-	   */
-	  onKeyboardFocus: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseEnter: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseLeave: _react.PropTypes.func,
-	  /** @ignore */
-	  onTouchStart: _react.PropTypes.func,
-	  /**
-	   * If true, colors button according to
-	   * primaryTextColor from the Theme.
-	   */
-	  primary: _react.PropTypes.bool,
-	  /**
-	   * Color for the ripple after button is clicked.
-	   */
-	  rippleColor: _react.PropTypes.string,
-	  /**
-	   * If true, colors button according to secondaryTextColor from the theme.
-	   * The primary prop has precendent if set to true.
-	   */
-	  secondary: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	};
-	FlatButton.defaultProps = {
-	  disabled: false,
-	  labelStyle: {},
-	  labelPosition: 'after',
-	  onKeyboardFocus: function onKeyboardFocus() {},
-	  onMouseEnter: function onMouseEnter() {},
-	  onMouseLeave: function onMouseLeave() {},
-	  onTouchStart: function onTouchStart() {},
-	  primary: false,
-	  secondary: false
-	};
-	FlatButton.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = FlatButton;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
+/* 278 */,
+/* 279 */,
 /* 280 */
 /***/ function(module, exports) {
 
@@ -55443,87 +54726,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _simpleAssign = __webpack_require__(280);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function getStyles(props, context) {
-	  var baseTheme = context.muiTheme.baseTheme;
-
-
-	  return {
-	    root: {
-	      position: 'relative',
-	      paddingLeft: baseTheme.spacing.desktopGutterLess,
-	      paddingRight: baseTheme.spacing.desktopGutterLess,
-	      verticalAlign: 'middle'
-	    }
-	  };
-	}
-
-	var FlatButtonLabel = function (_Component) {
-	  _inherits(FlatButtonLabel, _Component);
-
-	  function FlatButtonLabel() {
-	    _classCallCheck(this, FlatButtonLabel);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(FlatButtonLabel).apply(this, arguments));
-	  }
-
-	  _createClass(FlatButtonLabel, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var label = _props.label;
-	      var style = _props.style;
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context);
-
-	      return _react2.default.createElement(
-	        'span',
-	        { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
-	        label
-	      );
-	    }
-	  }]);
-
-	  return FlatButtonLabel;
-	}(_react.Component);
-
-	FlatButtonLabel.propTypes = {
-	  label: _react.PropTypes.node,
-	  style: _react.PropTypes.object
-	};
-	FlatButtonLabel.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = FlatButtonLabel;
-
-/***/ },
+/* 303 */,
 /* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -71727,39 +70930,83 @@
 	exports.default = ActionSearch;
 
 /***/ },
-/* 536 */
+/* 536 */,
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */,
+/* 541 */,
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.default = undefined;
 
-	var _Drawer = __webpack_require__(537);
+	var _TextField = __webpack_require__(306);
 
-	var _Drawer2 = _interopRequireDefault(_Drawer);
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _lodash = __webpack_require__(172);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _Drawer2.default;
+	var SearchBar = _react2.default.createClass({
+	    displayName: 'SearchBar',
+
+	    getInitialState: function getInitialState() {
+	        return { value: "" };
+	    },
+
+	    handleChange: _lodash2.default.debounce(function (event, index, value) {
+	        this.setState({ value: index });
+	        this.props.onUserInput({ filterText: index });
+	    }, 300),
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(_TextField2.default, {
+	                className: 'searchBar',
+	                hintText: 'Search for a class',
+	                onChange: this.handleChange,
+	                hintStyle: {
+	                    fontSize: '1em',
+	                    fontFamily: "Lato, sans-serif"
+	                }
+	            })
+	        );
+	    }
+	});
+
+	exports.default = SearchBar;
 
 /***/ },
-/* 537 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _simpleAssign = __webpack_require__(280);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
 
 	var _react = __webpack_require__(1);
 
@@ -71769,772 +71016,605 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactEventListener = __webpack_require__(309);
+	var _moment = __webpack_require__(174);
 
-	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
+	var _moment2 = _interopRequireDefault(_moment);
 
-	var _keycode = __webpack_require__(288);
+	var _getMuiTheme = __webpack_require__(340);
 
-	var _keycode2 = _interopRequireDefault(_keycode);
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 
-	var _autoPrefix = __webpack_require__(292);
+	var _MuiThemeProvider = __webpack_require__(339);
 
-	var _autoPrefix2 = _interopRequireDefault(_autoPrefix);
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-	var _transitions = __webpack_require__(281);
+	var _SelectField = __webpack_require__(304);
 
-	var _transitions2 = _interopRequireDefault(_transitions);
+	var _SelectField2 = _interopRequireDefault(_SelectField);
 
-	var _Overlay = __webpack_require__(538);
+	var _MenuItem = __webpack_require__(525);
 
-	var _Overlay2 = _interopRequireDefault(_Overlay);
-
-	var _Paper = __webpack_require__(495);
-
-	var _Paper2 = _interopRequireDefault(_Paper);
-
-	var _propTypes = __webpack_require__(330);
-
-	var _propTypes2 = _interopRequireDefault(_propTypes);
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var TimeSelect = _react2.default.createClass({
+	    displayName: 'TimeSelect',
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	    getInitialState: function getInitialState() {
+	        return { value: "" };
+	    },
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	    handleChange: function handleChange(event, index, value) {
+	        var before, after;
+	        switch (value) {
+	            case "":
+	                after = (0, _moment2.default)({ h: 0, m: 0, s: 0 });
+	                before = (0, _moment2.default)({ h: 23, m: 59, s: 59 });
+	                break;
+	            case "morning":
+	                after = (0, _moment2.default)({ h: 0, m: 0, s: 0 });
+	                before = (0, _moment2.default)({ h: 11, m: 59, s: 59 });
+	                break;
+	            case "afternoon":
+	                after = (0, _moment2.default)({ h: 12, m: 0, s: 0 });
+	                before = (0, _moment2.default)({ h: 15, m: 59, s: 59 });
+	                break;
+	            case "evening":
+	                after = (0, _moment2.default)({ h: 16, m: 0, s: 0 });
+	                before = (0, _moment2.default)({ h: 23, m: 59, s: 59 });
+	                break;
 
-	var openNavEventHandler = null;
-
-	var Drawer = function (_Component) {
-	  _inherits(Drawer, _Component);
-
-	  function Drawer() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, Drawer);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Drawer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleTouchTapOverlay = function (event) {
-	      event.preventDefault();
-	      _this.close('clickaway');
-	    }, _this.handleKeyUp = function (event) {
-	      if (_this.state.open && !_this.props.docked && (0, _keycode2.default)(event) === 'esc') {
-	        _this.close('escape');
-	      }
-	    }, _this.onBodyTouchStart = function (event) {
-	      var swipeAreaWidth = _this.props.swipeAreaWidth;
-
-	      var touchStartX = event.touches[0].pageX;
-	      var touchStartY = event.touches[0].pageY;
-
-	      // Open only if swiping from far left (or right) while closed
-	      if (swipeAreaWidth !== null && !_this.state.open) {
-	        if (_this.props.openSecondary) {
-	          // If openSecondary is true calculate from the far right
-	          if (touchStartX < document.body.offsetWidth - swipeAreaWidth) return;
-	        } else {
-	          // If openSecondary is false calculate from the far left
-	          if (touchStartX > swipeAreaWidth) return;
 	        }
-	      }
+	        this.props.onUserInput({
+	            filterTimeAfter: after,
+	            filterTimeBefore: before });
+	        this.setState({ value: value });
+	    },
 
-	      if (!_this.state.open && (openNavEventHandler !== _this.onBodyTouchStart || _this.props.disableSwipeToOpen)) {
-	        return;
-	      }
-
-	      _this.maybeSwiping = true;
-	      _this.touchStartX = touchStartX;
-	      _this.touchStartY = touchStartY;
-
-	      document.body.addEventListener('touchmove', _this.onBodyTouchMove);
-	      document.body.addEventListener('touchend', _this.onBodyTouchEnd);
-	      document.body.addEventListener('touchcancel', _this.onBodyTouchEnd);
-	    }, _this.onBodyTouchMove = function (event) {
-	      var currentX = event.touches[0].pageX;
-	      var currentY = event.touches[0].pageY;
-
-	      if (_this.state.swiping) {
-	        event.preventDefault();
-	        _this.setPosition(_this.getTranslateX(currentX));
-	      } else if (_this.maybeSwiping) {
-	        var dXAbs = Math.abs(currentX - _this.touchStartX);
-	        var dYAbs = Math.abs(currentY - _this.touchStartY);
-	        // If the user has moved his thumb ten pixels in either direction,
-	        // we can safely make an assumption about whether he was intending
-	        // to swipe or scroll.
-	        var threshold = 10;
-
-	        if (dXAbs > threshold && dYAbs <= threshold) {
-	          _this.swipeStartX = currentX;
-	          _this.setState({
-	            swiping: _this.state.open ? 'closing' : 'opening'
-	          });
-	          _this.setPosition(_this.getTranslateX(currentX));
-	        } else if (dXAbs <= threshold && dYAbs > threshold) {
-	          _this.onBodyTouchEnd();
-	        }
-	      }
-	    }, _this.onBodyTouchEnd = function (event) {
-	      if (_this.state.swiping) {
-	        var currentX = event.changedTouches[0].pageX;
-	        var translateRatio = _this.getTranslateX(currentX) / _this.getMaxTranslateX();
-
-	        _this.maybeSwiping = false;
-	        var swiping = _this.state.swiping;
-	        _this.setState({
-	          swiping: null
-	        });
-
-	        // We have to open or close after setting swiping to null,
-	        // because only then CSS transition is enabled.
-	        if (translateRatio > 0.5) {
-	          if (swiping === 'opening') {
-	            _this.setPosition(_this.getMaxTranslateX());
-	          } else {
-	            _this.close('swipe');
-	          }
-	        } else {
-	          if (swiping === 'opening') {
-	            _this.open('swipe');
-	          } else {
-	            _this.setPosition(0);
-	          }
-	        }
-	      } else {
-	        _this.maybeSwiping = false;
-	      }
-
-	      document.body.removeEventListener('touchmove', _this.onBodyTouchMove);
-	      document.body.removeEventListener('touchend', _this.onBodyTouchEnd);
-	      document.body.removeEventListener('touchcancel', _this.onBodyTouchEnd);
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(Drawer, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.maybeSwiping = false;
-	      this.touchStartX = null;
-	      this.touchStartY = null;
-	      this.swipeStartX = null;
-
-	      this.setState({
-	        open: this.props.open !== null ? this.props.open : this.props.docked,
-	        swiping: null
-	      });
+	    render: function render() {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(
+	                _SelectField2.default,
+	                {
+	                    className: 'chooser',
+	                    value: this.state.value,
+	                    onChange: this.handleChange,
+	                    style: {
+	                        fontSize: '1em',
+	                        fontFamily: "Lato, sans-serif"
+	                    } },
+	                _react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'All day' }),
+	                _react2.default.createElement(_MenuItem2.default, { value: 'morning', primaryText: 'Morning' }),
+	                _react2.default.createElement(_MenuItem2.default, { value: 'afternoon', primaryText: 'Afternoon' }),
+	                _react2.default.createElement(_MenuItem2.default, { value: 'evening', primaryText: 'Evening' })
+	            )
+	        );
 	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.enableSwipeHandling();
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      // If controlled then the open prop takes precedence.
-	      if (nextProps.open !== null) {
-	        this.setState({
-	          open: nextProps.open
-	        });
-	        // Otherwise, if docked is changed, change the open state for when uncontrolled.
-	      } else if (this.props.docked !== nextProps.docked) {
-	        this.setState({
-	          open: nextProps.docked
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this.enableSwipeHandling();
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.disableSwipeHandling();
-	    }
-	  }, {
-	    key: 'getStyles',
-	    value: function getStyles() {
-	      var muiTheme = this.context.muiTheme;
-	      var theme = muiTheme.drawer;
-
-	      var x = this.getTranslateMultiplier() * (this.state.open ? 0 : this.getMaxTranslateX());
-
-	      var styles = {
-	        root: {
-	          height: '100%',
-	          width: this.props.width || theme.width,
-	          position: 'fixed',
-	          zIndex: muiTheme.zIndex.drawer,
-	          left: 0,
-	          top: 0,
-	          transform: 'translate3d(' + x + 'px, 0, 0)',
-	          transition: !this.state.swiping && _transitions2.default.easeOut(null, 'transform', null),
-	          backgroundColor: theme.color,
-	          overflow: 'auto',
-	          WebkitOverflowScrolling: 'touch' },
-	        overlay: {
-	          zIndex: muiTheme.zIndex.drawerOverlay,
-	          pointerEvents: this.state.open ? 'auto' : 'none' },
-	        rootWhenOpenRight: {
-	          left: 'auto',
-	          right: 0
-	        }
-	      };
-
-	      return styles;
-	    }
-	  }, {
-	    key: 'shouldShow',
-	    value: function shouldShow() {
-	      return this.state.open || !!this.state.swiping; // component is swiping
-	    }
-	  }, {
-	    key: 'close',
-	    value: function close(reason) {
-	      if (this.props.open === null) this.setState({ open: false });
-	      if (this.props.onRequestChange) this.props.onRequestChange(false, reason);
-	      return this;
-	    }
-	  }, {
-	    key: 'open',
-	    value: function open(reason) {
-	      if (this.props.open === null) this.setState({ open: true });
-	      if (this.props.onRequestChange) this.props.onRequestChange(true, reason);
-	      return this;
-	    }
-	  }, {
-	    key: 'getMaxTranslateX',
-	    value: function getMaxTranslateX() {
-	      var width = this.props.width || this.context.muiTheme.drawer.width;
-	      return width + 10;
-	    }
-	  }, {
-	    key: 'getTranslateMultiplier',
-	    value: function getTranslateMultiplier() {
-	      return this.props.openSecondary ? 1 : -1;
-	    }
-	  }, {
-	    key: 'enableSwipeHandling',
-	    value: function enableSwipeHandling() {
-	      if (!this.props.docked) {
-	        document.body.addEventListener('touchstart', this.onBodyTouchStart);
-	        if (!openNavEventHandler) {
-	          openNavEventHandler = this.onBodyTouchStart;
-	        }
-	      } else {
-	        this.disableSwipeHandling();
-	      }
-	    }
-	  }, {
-	    key: 'disableSwipeHandling',
-	    value: function disableSwipeHandling() {
-	      document.body.removeEventListener('touchstart', this.onBodyTouchStart);
-	      if (openNavEventHandler === this.onBodyTouchStart) {
-	        openNavEventHandler = null;
-	      }
-	    }
-	  }, {
-	    key: 'setPosition',
-	    value: function setPosition(translateX) {
-	      var drawer = _reactDom2.default.findDOMNode(this.refs.clickAwayableElement);
-	      var transformCSS = 'translate3d(' + this.getTranslateMultiplier() * translateX + 'px, 0, 0)';
-	      this.refs.overlay.setOpacity(1 - translateX / this.getMaxTranslateX());
-	      _autoPrefix2.default.set(drawer.style, 'transform', transformCSS);
-	    }
-	  }, {
-	    key: 'getTranslateX',
-	    value: function getTranslateX(currentX) {
-	      return Math.min(Math.max(this.state.swiping === 'closing' ? this.getTranslateMultiplier() * (currentX - this.swipeStartX) : this.getMaxTranslateX() - this.getTranslateMultiplier() * (this.swipeStartX - currentX), 0), this.getMaxTranslateX());
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var children = _props.children;
-	      var className = _props.className;
-	      var containerClassName = _props.containerClassName;
-	      var containerStyle = _props.containerStyle;
-	      var docked = _props.docked;
-	      var openSecondary = _props.openSecondary;
-	      var overlayClassName = _props.overlayClassName;
-	      var overlayStyle = _props.overlayStyle;
-	      var style = _props.style;
-	      var zDepth = _props.zDepth;
-
-
-	      var styles = this.getStyles();
-
-	      var overlay = void 0;
-	      if (!docked) {
-	        overlay = _react2.default.createElement(_Overlay2.default, {
-	          ref: 'overlay',
-	          show: this.shouldShow(),
-	          className: overlayClassName,
-	          style: (0, _simpleAssign2.default)(styles.overlay, overlayStyle),
-	          transitionEnabled: !this.state.swiping,
-	          onTouchTap: this.handleTouchTapOverlay
-	        });
-	      }
-
-	      return _react2.default.createElement(
-	        'div',
-	        {
-	          className: className,
-	          style: style
-	        },
-	        _react2.default.createElement(_reactEventListener2.default, { target: 'window', onKeyUp: this.handleKeyUp }),
-	        overlay,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          {
-	            ref: 'clickAwayableElement',
-	            zDepth: zDepth,
-	            rounded: false,
-	            transitionEnabled: !this.state.swiping,
-	            className: containerClassName,
-	            style: (0, _simpleAssign2.default)(styles.root, openSecondary && styles.rootWhenOpenRight, containerStyle)
-	          },
-	          children
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Drawer;
-	}(_react.Component);
-
-	Drawer.propTypes = {
-	  /**
-	   * The contents of the `Drawer`
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * The CSS class name of the root element.
-	   */
-	  className: _react.PropTypes.string,
-	  /**
-	   * The CSS class name of the container element.
-	   */
-	  containerClassName: _react.PropTypes.string,
-	  /**
-	   * Override the inline-styles of the container element.
-	   */
-	  containerStyle: _react.PropTypes.object,
-	  /**
-	   * If true, swiping sideways when the `Drawer` is closed will not open it.
-	   */
-	  disableSwipeToOpen: _react.PropTypes.bool,
-	  /**
-	   * If true, the `Drawer` will be docked. In this state, the overlay won't show and
-	   * clicking on a menu item will not close the `Drawer`.
-	   */
-	  docked: _react.PropTypes.bool,
-	  /**
-	   * Callback function fired when the `open` state of the `Drawer` is requested to be changed.
-	   *
-	   * @param {boolean} open If true, the `Drawer` was requested to be opened.
-	   * @param {string} reason The reason for the open or close request. Possible values are
-	   * 'swipe' for open requests; 'clickaway' (on overlay clicks),
-	   * 'escape' (on escape key press), and 'swipe' for close requests.
-	   */
-	  onRequestChange: _react.PropTypes.func,
-	  /**
-	   * If true, the `Drawer` is opened.  Providing a value will turn the `Drawer`
-	   * into a controlled component.
-	   */
-	  open: _react.PropTypes.bool,
-	  /**
-	   * If true, the `Drawer` is positioned to open from the opposite side.
-	   */
-	  openSecondary: _react.PropTypes.bool,
-	  /**
-	   * The CSS class name to add to the `Overlay` component that is rendered behind the `Drawer`.
-	   */
-	  overlayClassName: _react.PropTypes.string,
-	  /**
-	   * Override the inline-styles of the `Overlay` component that is rendered behind the `Drawer`.
-	   */
-	  overlayStyle: _react.PropTypes.object,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  /**
-	   * The width of the left most (or right most) area in pixels where the `Drawer` can be
-	   * swiped open from. Setting this to `null` spans that area to the entire page
-	   * (**CAUTION!** Setting this property to `null` might cause issues with sliders and
-	   * swipeable `Tabs`: use at your own risk).
-	   */
-	  swipeAreaWidth: _react.PropTypes.number,
-	  /**
-	   * The width of the `Drawer` in pixels. Defaults to using the values from theme.
-	   */
-	  width: _react.PropTypes.number,
-	  /**
-	   * The zDepth of the `Drawer`.
-	   */
-	  zDepth: _propTypes2.default.zDepth
-
-	};
-	Drawer.defaultProps = {
-	  disableSwipeToOpen: false,
-	  docked: true,
-	  open: null,
-	  openSecondary: false,
-	  swipeAreaWidth: 30,
-	  width: null,
-	  zDepth: 2
-	};
-	Drawer.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = Drawer;
+	});
+	exports.default = TimeSelect;
 
 /***/ },
-/* 538 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+			value: true
 	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _simpleAssign = __webpack_require__(280);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _transitions = __webpack_require__(281);
+	var _reactDom = __webpack_require__(33);
 
-	var _transitions2 = _interopRequireDefault(_transitions);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _AutoLockScrolling = __webpack_require__(539);
+	var _moment = __webpack_require__(174);
 
-	var _AutoLockScrolling2 = _interopRequireDefault(_AutoLockScrolling);
+	var _moment2 = _interopRequireDefault(_moment);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _getMuiTheme = __webpack_require__(340);
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _MuiThemeProvider = __webpack_require__(339);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	var _SelectField = __webpack_require__(304);
 
-	function getStyles(props, context) {
-	  var overlay = context.muiTheme.overlay;
+	var _SelectField2 = _interopRequireDefault(_SelectField);
 
+	var _MenuItem = __webpack_require__(525);
 
-	  var style = {
-	    root: {
-	      position: 'fixed',
-	      height: '100%',
-	      width: '100%',
-	      top: 0,
-	      left: '-100%',
-	      opacity: 0,
-	      backgroundColor: overlay.backgroundColor,
-	      WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', // Remove mobile color flashing (deprecated)
-
-	      // Two ways to promote overlay to its own render layer
-	      willChange: 'opacity',
-	      transform: 'translateZ(0)',
-
-	      transition: props.transitionEnabled && _transitions2.default.easeOut('0ms', 'left', '400ms') + ', ' + _transitions2.default.easeOut('400ms', 'opacity')
-	    }
-	  };
-
-	  if (props.show) {
-	    (0, _simpleAssign2.default)(style.root, {
-	      left: 0,
-	      opacity: 1,
-	      transition: _transitions2.default.easeOut('0ms', 'left') + ', ' + _transitions2.default.easeOut('400ms', 'opacity')
-	    });
-	  }
-
-	  return style;
-	}
-
-	var Overlay = function (_Component) {
-	  _inherits(Overlay, _Component);
-
-	  function Overlay() {
-	    _classCallCheck(this, Overlay);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Overlay).apply(this, arguments));
-	  }
-
-	  _createClass(Overlay, [{
-	    key: 'setOpacity',
-	    value: function setOpacity(opacity) {
-	      this.refs.overlay.style.opacity = opacity;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var autoLockScrolling = _props.autoLockScrolling;
-	      var show = _props.show;
-	      var style = _props.style;
-	      var transitionEnabled = _props.transitionEnabled;
-
-	      var other = _objectWithoutProperties(_props, ['autoLockScrolling', 'show', 'style', 'transitionEnabled']);
-
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context);
-
-	      return _react2.default.createElement(
-	        'div',
-	        _extends({}, other, { ref: 'overlay', style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }),
-	        autoLockScrolling && _react2.default.createElement(_AutoLockScrolling2.default, { lock: show })
-	      );
-	    }
-	  }]);
-
-	  return Overlay;
-	}(_react.Component);
-
-	Overlay.propTypes = {
-	  autoLockScrolling: _react.PropTypes.bool,
-	  show: _react.PropTypes.bool.isRequired,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  transitionEnabled: _react.PropTypes.bool
-	};
-	Overlay.defaultProps = {
-	  autoLockScrolling: true,
-	  style: {},
-	  transitionEnabled: true
-	};
-	Overlay.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	exports.default = Overlay;
-
-/***/ },
-/* 539 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var originalBodyOverflow = null;
-	var lockingCounter = 0;
-
-	var AutoLockScrolling = function (_Component) {
-	  _inherits(AutoLockScrolling, _Component);
-
-	  function AutoLockScrolling() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, AutoLockScrolling);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(AutoLockScrolling)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.locked = false, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(AutoLockScrolling, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      if (this.props.lock === true) this.preventScrolling();
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.lock !== nextProps.lock) {
-	        if (nextProps.lock) {
-	          this.preventScrolling();
-	        } else {
-	          this.allowScrolling();
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.allowScrolling();
-	    }
-
-	    // force to only lock/unlock once
-
-	  }, {
-	    key: 'preventScrolling',
-	    value: function preventScrolling() {
-	      if (this.locked === true) return;
-	      lockingCounter = lockingCounter + 1;
-	      this.locked = true;
-
-	      // only lock the first time the component is mounted.
-	      if (lockingCounter === 1) {
-	        var body = document.getElementsByTagName('body')[0];
-	        originalBodyOverflow = body.style.overflow;
-	        body.style.overflow = 'hidden';
-	      }
-	    }
-	  }, {
-	    key: 'allowScrolling',
-	    value: function allowScrolling() {
-	      if (this.locked === true) {
-	        lockingCounter = lockingCounter - 1;
-	        this.locked = false;
-	      }
-
-	      if (lockingCounter === 0 && originalBodyOverflow !== null) {
-	        var body = document.getElementsByTagName('body')[0];
-	        body.style.overflow = originalBodyOverflow || '';
-	        originalBodyOverflow = null;
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return null;
-	    }
-	  }]);
-
-	  return AutoLockScrolling;
-	}(_react.Component);
-
-	AutoLockScrolling.propTypes = {
-	  lock: _react.PropTypes.bool.isRequired
-	};
-	exports.default = AutoLockScrolling;
-
-/***/ },
-/* 540 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _Divider = __webpack_require__(541);
-
-	var _Divider2 = _interopRequireDefault(_Divider);
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _Divider2.default;
+	var DaySelect = _react2.default.createClass({
+			displayName: 'DaySelect',
+
+			getInitialState: function getInitialState() {
+					return { value: "today" };
+			},
+
+			handleChange: function handleChange(event, index, value) {
+					var before, after;
+					switch (value) {
+							case "today":
+									after = (0, _moment2.default)();
+									before = (0, _moment2.default)().endOf('day');
+									break;
+							case "tomorrow":
+									after = (0, _moment2.default)().add(1, 'days').startOf('day');
+									before = (0, _moment2.default)().add(1, 'days').endOf('day');
+									break;
+							case "thisWeek":
+									after = (0, _moment2.default)();
+									before = (0, _moment2.default)().add(1, 'weeks').endOf('day');
+									break;
+					}
+					this.props.onUserInput({
+							filterDateAfter: after,
+							filterDateBefore: before });
+
+					this.setState({ value: value });
+			},
+
+			render: function render() {
+					return _react2.default.createElement(
+							_MuiThemeProvider2.default,
+							{ muiTheme: (0, _getMuiTheme2.default)() },
+							_react2.default.createElement(
+									_SelectField2.default,
+									{
+											className: 'chooser',
+											value: this.state.value,
+											onChange: this.handleChange,
+											style: {
+													fontSize: '1em',
+													fontFamily: "Lato, sans-serif"
+											}
+									},
+									_react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'Any day' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'today', primaryText: 'Today' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'tomorrow', primaryText: 'Tomorrow' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'thisWeek', primaryText: 'This week' })
+							)
+					);
+			}
+	});
+
+	exports.default = DaySelect;
 
 /***/ },
-/* 541 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+			value: true
 	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _simpleAssign = __webpack_require__(280);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _moment = __webpack_require__(174);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _SelectField = __webpack_require__(304);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(525);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	var GymSelect = _react2.default.createClass({
+			displayName: 'GymSelect',
 
-	var propTypes = {
-	  /**
-	   * The css class name of the root element.
-	   */
-	  className: _react.PropTypes.string,
-	  /**
-	   * If true, the `Divider` will be indented `72px`.
-	   */
-	  inset: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	};
+			getInitialState: function getInitialState() {
+					return { value: "" };
+			},
+			gymChange: function gymChange(event, index, value) {
+					this.setState({ value: value });
+					this.props.onUserInput({ filteredGym: value });
+			},
 
-	var defaultProps = {
-	  inset: false
-	};
+			render: function render() {
+					return _react2.default.createElement(
+							_MuiThemeProvider2.default,
+							{ muiTheme: (0, _getMuiTheme2.default)() },
+							_react2.default.createElement(
+									_SelectField2.default,
+									{ id: 'dropdown',
+											value: this.state.value,
+											onChange: this.gymChange,
+											className: 'chooser',
+											style: {
+													fontSize: '1em',
+													fontFamily: "Lato, sans-serif"
+											}
+									},
+									_react2.default.createElement(_MenuItem2.default, { value: '', primaryText: 'Any Gym' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'city', primaryText: 'City' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'britomart', primaryText: 'Britomart' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'takapuna', primaryText: 'Takapuna' }),
+									_react2.default.createElement(_MenuItem2.default, { value: 'newmarket', primaryText: 'Newmarket' })
+							)
+					);
+			}
+	});
 
-	var contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
+	exports.default = GymSelect;
 
-	var Divider = function Divider(props, context) {
-	  var inset = props.inset;
-	  var style = props.style;
+/***/ },
+/* 546 */
+/***/ function(module, exports, __webpack_require__) {
 
-	  var other = _objectWithoutProperties(props, ['inset', 'style']);
+	'use strict';
 
-	  var muiTheme = context.muiTheme;
-	  var prepareStyles = muiTheme.prepareStyles;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
+	var _react = __webpack_require__(1);
 
-	  var styles = {
-	    root: {
-	      margin: 0,
-	      marginTop: -1,
-	      marginLeft: inset ? 72 : 0,
-	      height: 1,
-	      border: 'none',
-	      backgroundColor: muiTheme.baseTheme.palette.borderColor
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _moment = __webpack_require__(174);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GymClassDaySeparator = _react2.default.createClass({
+	    displayName: 'GymClassDaySeparator',
+
+	    getInitialState: function getInitialState() {
+	        return {};
+	    },
+
+	    render: function render(props) {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'separator' },
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    ' ',
+	                    this.props.day,
+	                    '  '
+	                ),
+	                _react2.default.createElement('hr', null)
+	            )
+	        );
 	    }
-	  };
+	});
 
-	  return _react2.default.createElement('hr', _extends({}, other, { style: prepareStyles((0, _simpleAssign2.default)({}, styles.root, style)) }));
-	};
+	exports.default = GymClassDaySeparator;
 
-	Divider.muiName = 'Divider';
-	Divider.propTypes = propTypes;
-	Divider.defaultProps = defaultProps;
-	Divider.contextTypes = contextTypes;
+/***/ },
+/* 547 */
+/***/ function(module, exports, __webpack_require__) {
 
-	exports.default = Divider;
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _moment = __webpack_require__(174);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _gymclassrow = __webpack_require__(548);
+
+	var _gymclassrow2 = _interopRequireDefault(_gymclassrow);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GymClassTable = _react2.default.createClass({
+			displayName: 'GymClassTable',
+
+			render: function render() {
+					var rows = [];
+					var currentDay = (0, _moment2.default)();
+					if (this.props.gymclass != null) {
+							this.props.gymclass.forEach(function (gymclass, index) {
+									if ((0, _moment2.default)(gymclass.startdatetime).dayOfYear() != currentDay.dayOfYear()) {
+											currentDay = (0, _moment2.default)(gymclass.startdatetime);
+											rows.push(_react2.default.createElement(GymClassDaySeparator, { day: currentDay.format("dddd") }));
+									}
+									rows.push(_react2.default.createElement(_gymclassrow2.default, {
+											gymclass: gymclass,
+											haveLocation: this.props.haveLocation,
+											userLatitude: this.props.userLatitude,
+											userLongitude: this.props.userLongitude,
+											key: index }));
+							}.bind(this));
+					} else {
+							rows = [];
+					}
+					return _react2.default.createElement(
+							'div',
+							{ className: 'listOfCards' },
+							' ',
+							rows,
+							' '
+					);
+			}
+	});
+
+	exports.default = GymClassTable;
+
+/***/ },
+/* 548 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _moment = __webpack_require__(174);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	__webpack_require__(277);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _Card = __webpack_require__(513);
+
+	var _Avatar = __webpack_require__(519);
+
+	var _Avatar2 = _interopRequireDefault(_Avatar);
+
+	var _FontIcon = __webpack_require__(507);
+
+	var _FontIcon2 = _interopRequireDefault(_FontIcon);
+
+	var _colors = __webpack_require__(457);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GymClassRow = _react2.default.createClass({
+	    displayName: 'GymClassRow',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            expanded: false,
+	            drivingTime: ''
+	        };
+	    },
+
+	    updateDriveTime: function updateDriveTime(t) {
+	        this.setState({
+	            drivingTime: t + " minutes drive",
+	            expanded: false
+	        });
+	    },
+
+	    handleExpandChange: function handleExpandChange() {
+	        if (this.state.expanded) {
+	            this.setState({ expanded: false });
+	        } else {
+	            var url = "http://localhost:9000/traveltime/".concat("?origin=", this.props.userLatitude, ",", this.props.userLongitude, "&destination=", this.props.gymclass.latlong);
+
+	            fetch(url).then(function (response) {
+	                return response.text();
+	            }).then(function (t) {
+	                this.updateDriveTime(t);
+	            }.bind(this));
+	        }
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(
+	                _Card.Card,
+	                {
+	                    className: 'gymCard',
+	                    expandable: this.props.haveLocation,
+	                    initiallyExpanded: false,
+	                    onExpandChange: this.handleExpandChange
+	                },
+	                _react2.default.createElement(_Card.CardHeader, {
+	                    titleStyle: {
+	                        fontSize: '1.2em'
+	                    },
+	                    subtitleStyle: {
+	                        fontSize: '.8em'
+	                    },
+	                    avatar: _react2.default.createElement(
+	                        _Avatar2.default,
+	                        { size: 40, backgroundColor: _colors.pink400 },
+	                        this.props.gymclass.gym.toUpperCase().charAt(0)
+	                    ),
+	                    title: this.props.gymclass.name.toLowerCase(),
+	                    subtitle: this.props.gymclass.gym.toLowerCase(),
+	                    showExpandableButton: this.props.haveLocation
+	                }),
+	                _react2.default.createElement(
+	                    _Card.CardText,
+	                    {
+	                        style: {
+	                            fontSize: '1em',
+	                            padding: '0px 16px 16px 16px'
+	                        }
+	                    },
+	                    this.props.gymclass.location.toLowerCase(),
+	                    ' ',
+	                    _react2.default.createElement('br', null),
+	                    (0, _moment2.default)(this.props.gymclass.startdatetime).format("dddd h:mm a").toLowerCase(),
+	                    ' ',
+	                    _react2.default.createElement('br', null),
+	                    _moment2.default.duration((0, _moment2.default)(this.props.gymclass.enddatetime).diff((0, _moment2.default)(this.props.gymclass.startdatetime))).asMinutes(),
+	                    ' minutes'
+	                ),
+	                _react2.default.createElement(
+	                    _Card.CardText,
+	                    {
+	                        expandable: true,
+	                        style: {
+	                            fontStyle: 'italic',
+	                            fontSize: '0.8em',
+	                            padding: '0px 16px 16px 16px'
+	                        }
+	                    },
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            _FontIcon2.default,
+	                            { className: 'material-icons' },
+	                            'directions_car'
+	                        ),
+	                        this.state.drivingTime
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	exports.default = GymClassRow;
+
+/***/ },
+/* 549 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _getMuiTheme = __webpack_require__(340);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(339);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _reactTapEventPlugin = __webpack_require__(526);
+
+	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
+
+	var _AppBar = __webpack_require__(532);
+
+	var _AppBar2 = _interopRequireDefault(_AppBar);
+
+	var _IconButton = __webpack_require__(505);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	var _search = __webpack_require__(535);
+
+	var _search2 = _interopRequireDefault(_search);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavBar = _react2.default.createClass({
+	    displayName: 'NavBar',
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            _MuiThemeProvider2.default,
+	            { muiTheme: (0, _getMuiTheme2.default)() },
+	            _react2.default.createElement(_AppBar2.default, {
+	                showMenuIconButton: false,
+	                iconElementLeft: _react2.default.createElement(
+	                    _IconButton2.default,
+	                    null,
+	                    _react2.default.createElement(_search2.default, null)
+	                ),
+	                title: 'Gym Search',
+	                className: 'navBar' })
+	        );
+	    }
+	});
+
+	exports.default = NavBar;
 
 /***/ }
 /******/ ]);

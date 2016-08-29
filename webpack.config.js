@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/main.js',
     output: { path: './build/', filename: 'main.js' },
     resolve: {
-        extensions: ['', '.scss', '.css', '.js', '.json'],
+        extensions: ['', '.scss', '.css', '.js', '.json', '.jsx'],
     },
     module: {
         loaders: [
