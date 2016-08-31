@@ -5,6 +5,7 @@ import moment from 'moment';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import GymClassRow from './gymclassrow.js'
+import GymClassDaySeparator from './gymclassdayseparator.js'
 
 var GymClassTable = React.createClass({ 
 		render: function() {
