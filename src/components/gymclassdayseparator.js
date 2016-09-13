@@ -6,18 +6,18 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 var GymClassDaySeparator = React.createClass({
-    getInitialState:function(){
+    getInitialState: function () {
         return {};
     },
-    
-    render: function(props) {
+
+    render: function (props) {
         return (
-                <MuiThemeProvider muiTheme={getMuiTheme()} >
+            <MuiThemeProvider muiTheme={getMuiTheme() } >
                 <div className="separator">
-                <p> {this.props.day}  </p>
-                <hr />
+                    <p> {this.props.day}  </p>
+                    <hr />
                 </div>
-                </MuiThemeProvider>
+            </MuiThemeProvider>
         )
     }
 });

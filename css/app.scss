@@ -168,3 +168,11 @@ hr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
 }
+
+.spinner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
