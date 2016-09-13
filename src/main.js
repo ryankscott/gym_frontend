@@ -18,6 +18,7 @@ import GymClassTable from './components/gymclasstable.js';
 import NavBar from './components/navbar.js';
 import Spinner from './components/spinner.js';
 
+
 injectTapEventPlugin();
 
 String.prototype.toTitleCase = function () {
@@ -41,7 +42,7 @@ var FilterableGymClassTable = React.createClass({
             filterTimeAfter: moment({ h: 0, m: 0, s: 0 }),
             filterTimeBefore: moment({ h: 23, m: 59, s: 59 }),
             gymclass: [],
-            url: "http://localhost:9000/class/?limit=100",
+            url: process.env.API_URL + "class/?limit=100",
             spinning: true
         };
     },

@@ -29,8 +29,8 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t [ babelify --presets [ react ] ] src/main.js -o build/main.js"
+    "test": "webpack --build --define process.env.API_URL='https://localhost:9000/' --progress --colors",
+    "build": "webpack --build --define process.env.API_URL='https://ryankscott.com:9000/' --progress --colors"
   },
   "repository": {
     "type": "git",

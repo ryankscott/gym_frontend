@@ -134,7 +134,7 @@
 	            filterTimeAfter: (0, _moment2.default)({ h: 0, m: 0, s: 0 }),
 	            filterTimeBefore: (0, _moment2.default)({ h: 23, m: 59, s: 59 }),
 	            gymclass: [],
-	            url: "http://localhost:9000/class/?limit=100",
+	            url: (https://localhost:9000/) + "class/?limit=100",
 	            spinning: true
 	        };
 	    },
