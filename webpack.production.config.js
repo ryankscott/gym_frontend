@@ -20,5 +20,13 @@ module.exports = {
                 loaders: ['style', 'css', 'sass']
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+                'API_URL': JSON.stringify('https://ryankscott.com:9000/')
+            }
+        })
+    ]
 };

@@ -17,6 +17,7 @@ import GymClassDaySeparator from './components/gymclassdayseparator.js';
 import GymClassTable from './components/gymclasstable.js';
 import NavBar from './components/navbar.js';
 import Spinner from './components/spinner.js';
+import LineProgress from './components/linearprogress.js';
 
 
 injectTapEventPlugin();
@@ -43,7 +44,8 @@ var FilterableGymClassTable = React.createClass({
             filterTimeBefore: moment({ h: 23, m: 59, s: 59 }),
             gymclass: [],
             url: process.env.API_URL + "class/?limit=100",
-            spinning: true
+            initialLoading: true,
+            filtering: false
         };
     },
 
@@ -58,10 +60,10 @@ var FilterableGymClassTable = React.createClass({
 
     filterResults: function (response) {
         this.setState({
-            spinning: false,
+            initialLoading: false,
+            filtering: false,
             gymclass: response
         });
-        console.log(this.state.spinning)
     },
 
     gotGeoLocation: function (position) {
@@ -88,23 +90,25 @@ var FilterableGymClassTable = React.createClass({
             encodeURIComponent(this.state.filterDateAfter.format("YYYY-MM-DDTHH:mm:ssZ")));
         this.getClasses(url);
     },
-
     componentWillUnmount: function () {
         this.serverRequest.abort();
     },
 
-    handleChange: function (input) {
-
         // Good luck debugging this future me
         // I'm trying to merge these two objects, input should have the things that change and state the current state
         // If we have the attribute in the state, but not in the input then copy it to the input
+    handleChange: function (input) {
         for (var attrname in this.state) {
             if (this.state[attrname] && (!input[attrname] && input[attrname] != "")) {
                 input[attrname] = this.state[attrname];
             }
         }
+       this.setState({
+            filtering: true
+        });
 
         this.setState(input, function () {
+
             // Prepare the datetime
             var beforeDateTime = moment({
                 'year': this.state.filterDateBefore.year(),
@@ -141,6 +145,7 @@ var FilterableGymClassTable = React.createClass({
     render: function () {
         return (
             <div>
+                {this.state.filtering ? <LineProgress/> : null}
                 <div id="filterBar">
                     <SearchBar
                         filterText={this.state.filterText}
@@ -163,7 +168,7 @@ var FilterableGymClassTable = React.createClass({
                         />
                 </div>
                 <div className="spinner">
-                    {this.state.spinning ? <Spinner/> : null}
+                    {this.state.initialLoading ? <Spinner/> : null}
                 </div>
                 <div>
                     <GymClassTable

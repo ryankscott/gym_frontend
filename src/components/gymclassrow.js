@@ -36,7 +36,7 @@ var GymClassRow = React.createClass({
         if (this.state.expanded) {
             this.setState({ expanded: false });
         } else {
-            var url = "http://localhost:9000/traveltime/".concat(
+            var url = process.env.API_URL + "/traveltime/".concat(
                 "?origin=",
                 this.props.userLatitude,
                 ",",

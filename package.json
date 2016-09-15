@@ -29,8 +29,9 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "test": "webpack --build --define process.env.API_URL='https://localhost:9000/' --progress --colors",
-    "build": "webpack --build --define process.env.API_URL='https://ryankscott.com:9000/' --progress --colors"
+    "test": "webpack ---build --config webpack.dev.config.js --progress --colors",
+    "build": "webpack -p --config webpack.production.config.js --progress --colors",
+    "watch": "webpack --watch --config webpack.dev.config.js --progress --colors"
   },
   "repository": {
     "type": "git",

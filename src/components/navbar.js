@@ -10,17 +10,17 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 
 
 var NavBar = React.createClass({
-    render: function() {
+    render: function () {
         return (
-                <MuiThemeProvider muiTheme={getMuiTheme()} >
+            <MuiThemeProvider muiTheme={getMuiTheme() } >
                 <AppBar
-            showMenuIconButton={false}
-            iconElementLeft={<IconButton><SearchIcon /></IconButton>}
-            title="Gym Search"
-            className="navBar" />
-                </ MuiThemeProvider >
+                    showMenuIconButton={false}
+                    iconElementLeft={<IconButton><SearchIcon /></IconButton>}
+                    title="Gym Search"
+                    className="navBar" />
+            </ MuiThemeProvider >
         );
-		}
+    }
 });
 
 export default NavBar;
