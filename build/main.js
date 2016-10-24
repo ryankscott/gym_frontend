@@ -61242,11 +61242,11 @@
 	                before = (0, _moment2.default)({ h: 11, m: 59, s: 59 });
 	                break;
 	            case "afternoon":
-	                after = (0, _moment2.default)({ h: 12, m: 0, s: 0 });
+	                after = (0, _moment2.default)({ h: 11, m: 59, s: 59 });
 	                before = (0, _moment2.default)({ h: 15, m: 59, s: 59 });
 	                break;
 	            case "evening":
-	                after = (0, _moment2.default)({ h: 16, m: 0, s: 0 });
+	                after = (0, _moment2.default)({ h: 15, m: 59, s: 59 });
 	                before = (0, _moment2.default)({ h: 23, m: 59, s: 59 });
 	                break;
 

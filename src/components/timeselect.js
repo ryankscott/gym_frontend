@@ -24,11 +24,11 @@ var TimeSelect = React.createClass({
             before=moment({h: 11, m:59, s:59})
             break;
         case "afternoon":
-            after=moment({h:12, m:0, s:0});
+            after=moment({h:11, m:59, s:59});
             before=moment({h: 15, m:59, s:59})
             break;
         case "evening":
-            after=moment({h:16, m:0, s:0});
+            after=moment({h:15, m:59, s:59});
             before=moment({h: 23, m:59, s:59})
             break;
 
