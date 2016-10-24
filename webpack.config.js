@@ -24,7 +24,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'API_URL': JSON.stringify(process.env.GYMCLASS_URL) || JSON.stringify('http://www.ryankscott.com:9000/')
+                'API_URL': JSON.stringify(process.env.GYMCLASS_URL) || JSON.stringify('https://www.ryankscott.com:9000/')
             }
         })
     ]
