@@ -1,0 +1,24 @@
+@import '../app.scss';
+
+.navbar {
+    height: 40px;
+    background-color: $primaryBlue;
+    border: 10px;
+    border-bottom: 1px solid $primaryBlue;
+    box-shadow: 0px 2px 2px -2px $primaryBlue;
+    padding: 5px 5px 5px 10px;
+&.classic {
+    background-color: #fff;
+    border: 1px solid #000;
+}
+h1 {
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+&.classic {
+    font-family: "Courier";
+    color: #000;
+    }
+
+}
+}

@@ -1,26 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import SearchIcon from 'material-ui/svg-icons/action/search';
+import classNames from 'classnames';
+import navbar from './navbar.scss'
 
 
-var NavBar = React.createClass({
-    render: function () {
+class NavBar extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme() } >
-                <AppBar
-                    showMenuIconButton={false}
-                    iconElementLeft={<IconButton><SearchIcon /></IconButton>}
-                    title="Gym Search"
-                    className="navBar" />
-            </ MuiThemeProvider >
+        <div className={classNames('navbar', { 'classic': this.props.classic })}>
+                <h1 className={classNames({'classic': this.props.classic})}> </h1>
+            </div>
         );
     }
-});
+};
 
 export default NavBar;

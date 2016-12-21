@@ -1,0 +1,56 @@
+@import '../app.scss';
+
+.gym-class-table-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.gym-class-table {
+    width: 80%;
+    padding: 0px;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;    
+    width: 80%;
+    margin: 40px 20px 20px 20px;
+    &.classic {
+        font-family: "Courier";
+    }
+    &.hidden {
+        visibility: hidden;
+    }
+    .table {
+        width: 100%
+    }
+}
+
+.gym-class-table-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    &:nth-of-type(even) {
+        background-color: rgba(188, 188, 188, 0.1);
+    }
+}
+
+.gym-class-table-cell {
+    font-size: 15px;
+    width: 20%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 10px 15px;
+    overflow: hidden;
+    list-style: none;
+    &.header {
+        font-family: "Lato";
+        font-weight: 500;
+        font-size: 16px;
+        padding: 15px 15px;
+        text-transform: uppercase;
+        color: $primaryBlue;
+    }
+}

@@ -1,31 +1,41 @@
-var path = require('path');
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
-    context: __dirname,
-    entry: './src/main.js',
-    output: { path: './build/', filename: 'main.js' },
-    resolve: {
-        extensions: ['', '.scss', '.css', '.js', '.json', '.jsx'],
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loaders: ['jsx', 'babel'],
-                exclude: /node_modules/
-            },
-            {
-                test: /(\.scss|\.css)$/,
-                loaders: ['style', 'css', 'sass']
-            }
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                'API_URL': JSON.stringify(process.env.GYMCLASS_URL) || JSON.stringify('https://www.ryankscott.com:9000/')
-            }
-        })
-    ]
+	entry: './src/main.js',
+	output: {
+		publicPath: '/build/',
+		path: './build/',
+		filename: 'main.js',
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			'__GYM_ENDPOINT_URL__': JSON.stringify(process.env.GYM_ENDPOINT_URL) || JSON.stringify(''),
+		}),
+	],
+	module: {
+		loaders: [{
+			test: /\.js$/,
+			exclude: /node_modules/,
+			loader: 'babel-loader',
+			query: {
+				presets: ['es2015', 'react'],
+			}
+		}, {
+			test: /(\.scss|\.css)$/,
+			loaders: ['style', 'css', 'sass'],
+		}, {
+			test: /\.(jpe?g|png|gif|svg)$/i,
+			loaders: [
+				'file?hash=sha512&digest=hex&name=[hash].[ext]',
+				'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+			]
+		},
+
+		],
+	},
+	sassLoader: {
+		includePaths: [
+			'./node_modules'
+		]
+	}
 };

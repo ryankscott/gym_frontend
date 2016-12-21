@@ -1,4 +1,10 @@
-/* Coolors Exported Palette - coolors.co/fafafa-e3f2fd-db5461-686963-8aa29e */
+$mainGrey: #1A535C;
+$mainGreen: #4ECDC4;
+$mainWhite: #F7FFF7;
+$mainRed: #FF6B6B;
+$mainYellow: #FFE66D;
+
+
 @import url("https://fonts.googleapis.com/css?family=Lato");
 html {
   height: 100%; }
