@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot",
-    "build": "webpack --build --progress --colors --watch",
+    "build": "GYMCLASS_URL=/gym webpack --build --progress --colors",
     "dev": "GYMCLASS_URL=localhost:9000 npm start"
   },
   "repository": {

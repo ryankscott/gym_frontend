@@ -3,13 +3,13 @@ const webpack = require('webpack');
 module.exports = {
 	entry: './src/main.js',
 	output: {
-		publicPath: '/build/',
+		publicPath: '/gym/build/',
 		path: './build/',
 		filename: 'main.js',
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-			'__GYM_ENDPOINT_URL__': JSON.stringify(process.env.GYM_ENDPOINT_URL) || JSON.stringify(''),
+			'__GYMCLASS_URL__': JSON.stringify(process.env.GYMCLASS_URL) || JSON.stringify(''),
 		}),
 	],
 	module: {

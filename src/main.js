@@ -20,7 +20,7 @@ class App extends Component {
     }
 
     onSearch(e) {
-        var url = "http://localhost:9000/search/?q=" + e
+        var url = __GYMCLASS_URL__ + "/search/?q=" + e
         fetch(url).then(
             function (response) {
                 return response.json();

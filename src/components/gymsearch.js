@@ -67,11 +67,7 @@ class GymSearch extends Component {
 					onBlur={() => this.setState({ isFocused: false })}
 					onFocus={() => this.setState({ isFocused: true })}
 					onKeyDown={this.onKeyDown.bind(this)} />
-				<input
-					className={classNames('icon search-bar-submit', { 'classic': this.props.classic })}
-					type="submit"
-					value=""
-					/>
+				<img src={require("../img/search.svg")} className="search" />
 			</div>
 		);
 	}
