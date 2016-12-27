@@ -111,6 +111,7 @@
 	            fetch(url).then(function (response) {
 	                return response.json();
 	            }).then(function (res) {
+	                console.log(res);
 	                this.setState({ classes: res });
 	            }.bind(this));
 	        }
@@ -52121,7 +52122,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Raleway|Nunito+Sans|Lato:300,500,700,900|Open+Sans|Oswald);", ""]);
 
 	// module
-	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n", ""]);
+	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n  @media all and (max-device-width: 670px) {\n    .title {\n      margin-top: 100px; } }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n  @media all and (max-device-width: 670px) {\n    .logo {\n      height: 140px;\n      width: 140px; } }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n    @media all and (max-device-width: 670px) {\n      .container h1 {\n        font-size: 84px; } }\n", ""]);
 
 	// exports
 
@@ -52490,7 +52491,7 @@
 			};
 			_this.onChange = _this.onChange.bind(_this);
 			_this.onKeyDown = _this.onKeyDown.bind(_this);
-			_this.search = _lodash2.default.debounce(_this.props.onSearch, 250);
+			_this.search = _lodash2.default.debounce(_this.props.onSearch, 350);
 			_this.search = _this.search.bind(_this);
 			_this.normaliseInput = _this.normaliseInput.bind(_this);
 			return _this;
@@ -52653,7 +52654,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Raleway|Nunito+Sans|Lato:300,500,700,900|Open+Sans|Oswald);", ""]);
 
 	// module
-	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n\n.search-bar-wrapper {\n  font-family: \"Lato\";\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-self: center;\n  padding-top: 20px;\n  height: 36px;\n  width: 100%;\n  -webkit-transition: width 0.3s ease-in-out;\n  -moz-transition: width 0.3s ease-in-out;\n  -o-transition: width 0.3s ease-in-out;\n  transition: width 0.3s ease-in-out; }\n  .search-bar-wrapper.classic {\n    -webkit-transition: width 0.3s linear;\n    -moz-transition: width 0.3s linear;\n    -o-transition: width 0.3s linear;\n    transition: width 0.3s linear; }\n\n.search-bar-input {\n  font-family: \"Lato\";\n  outline: none;\n  font-size: 16px;\n  box-sizing: border-box;\n  border-top: 1px solid rgba(188, 188, 188, 0.5);\n  border-bottom: 1px solid rgba(188, 188, 188, 0.5);\n  border-left: 1px solid rgba(188, 188, 188, 0.5);\n  border-right: 0px;\n  border-radius: 0px;\n  position: relative;\n  margin: 0;\n  padding-left: 10px;\n  width: 30%;\n  -webkit-transition: width 0.3s ease-in-out;\n  -moz-transition: width 0.3s ease-in-out;\n  -o-transition: width 0.3s ease-in-out;\n  transition: width 0.3s ease-in-out; }\n  .search-bar-input.classic {\n    font-family: \"Courier\";\n    font-size: 14px;\n    color: #000;\n    border: 1px solid #000;\n    border-radius: 5px;\n    -webkit-transition: width 0.3s linear;\n    -moz-transition: width 0.3s linear;\n    -o-transition: width 0.3s linear;\n    transition: width 0.3s linear; }\n\n.search {\n  height: 24px;\n  width: 30px;\n  padding: 5px 0px 5px 0px;\n  border-right: 1px solid rgba(188, 188, 188, 0.5);\n  border-top: 1px solid rgba(188, 188, 188, 0.5);\n  border-bottom: 1px solid rgba(188, 188, 188, 0.5);\n  border-left: 0px;\n  border-radius: 0px; }\n", ""]);
+	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n  @media all and (max-device-width: 670px) {\n    .title {\n      margin-top: 100px; } }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n  @media all and (max-device-width: 670px) {\n    .logo {\n      height: 140px;\n      width: 140px; } }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n    @media all and (max-device-width: 670px) {\n      .container h1 {\n        font-size: 84px; } }\n\n.search-bar-wrapper {\n  font-family: \"Lato\";\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-self: center;\n  padding-top: 20px;\n  height: 36px;\n  width: 100%; }\n  @media all and (max-device-width: 670px) {\n    .search-bar-wrapper {\n      height: 84px;\n      padding-top: 0px; } }\n\n.search-bar-input {\n  outline: none;\n  -webkit-appearance: none;\n  font-family: \"Lato\";\n  font-size: 16px;\n  box-sizing: border-box;\n  border-top: 1px solid rgba(188, 188, 188, 0.5);\n  border-bottom: 1px solid rgba(188, 188, 188, 0.5);\n  border-left: 1px solid rgba(188, 188, 188, 0.5);\n  border-right: 0px;\n  border-radius: 0px;\n  margin: 0;\n  padding-left: 10px;\n  width: 30%; }\n  @media all and (max-device-width: 670px) {\n    .search-bar-input {\n      width: 80%;\n      font-size: 50px; } }\n\n.search {\n  outline: none;\n  height: 24px;\n  width: 30px;\n  padding: 5px 0px 5px 0px;\n  border-right: 1px solid rgba(188, 188, 188, 0.5);\n  border-top: 1px solid rgba(188, 188, 188, 0.5);\n  border-bottom: 1px solid rgba(188, 188, 188, 0.5);\n  border-left: 0px;\n  border-radius: 0px; }\n  @media all and (max-device-width: 670px) {\n    .search {\n      height: 72px;\n      width: 74px; } }\n", ""]);
 
 	// exports
 
@@ -52725,6 +52726,13 @@
 			key: 'render',
 			value: function render() {
 				var rows = [];
+				var spacer;
+				var dayFormat = "dddd";
+				var width = window.innerWidth || documentElement.clientWidth || body.clientWidth;
+				if (width < 1000) {
+					dayFormat = "ddd";
+					spacer = _react2.default.createElement('br', null);
+				}
 				if (this.props.gymclass != null) {
 					this.props.gymclass.forEach(function (gymclass, index) {
 						rows.push(_react2.default.createElement(
@@ -52751,14 +52759,11 @@
 							_react2.default.createElement(
 								'div',
 								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }) },
-								(0, _moment2.default)(gymclass.startdatetime).format("dddd h:mm a"),
+								(0, _moment2.default)(gymclass.startdatetime).format(dayFormat),
+								' ',
+								spacer,
+								(0, _moment2.default)(gymclass.startdatetime).format("h:mm a"),
 								' '
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }) },
-								_moment2.default.duration((0, _moment2.default)(gymclass.enddatetime).diff((0, _moment2.default)(gymclass.startdatetime))).asMinutes(),
-								' minutes '
 							)
 						));
 					}.bind(this));
@@ -52768,37 +52773,41 @@
 					{ className: 'gym-class-table-wrapper' },
 					_react2.default.createElement(
 						'div',
-						{ className: (0, _classnames2.default)('gym-class-table', { 'classic': this.props.classic }, { 'hidden': !this.props.gymclass }) },
+						{ className: (0, _classnames2.default)('gym-class-table', { 'classic': this.props.classic }) },
 						_react2.default.createElement(
 							'div',
-							{ className: 'gym-class-table-row' },
+							{ className: (0, _classnames2.default)('gym-class-table-row header', { 'hidden': this.props.gymclass == null || this.props.gymclass.length == 0 }) },
 							_react2.default.createElement(
 								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', 'header', { 'classic': this.props.classic }) },
+								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': this.props.gymclass == null || this.props.gymclass.length == 0 }) },
 								'Gym'
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', 'header', { 'classic': this.props.classic }) },
+								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': this.props.gymclass == null || this.props.gymclass.length == 0 }) },
 								'Class'
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', 'header', { 'classic': this.props.classic }) },
+								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': this.props.gymclass == null || this.props.gymclass.length == 0 }) },
 								'Location'
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', 'header', { 'classic': this.props.classic }) },
+								{ className: (0, _classnames2.default)('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': this.props.gymclass == null || this.props.gymclass.length == 0 }) },
 								'Start Time'
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: (0, _classnames2.default)('gym-class-table-cell', 'header', { 'classic': this.props.classic }) },
-								'Duration'
 							)
 						),
 						rows
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: (0, _classnames2.default)('no-class-text-container', { 'hidden': this.props.gymclass == null || this.props.gymclass != null && this.props.gymclass.length > 0 }) },
+						_react2.default.createElement(
+							'p',
+							{ className: (0, _classnames2.default)('no-class-text', { 'hidden': this.props.gymclass == null || this.props.gymclass != null && this.props.gymclass.length > 0 }) },
+							' No classes found ☹️ '
+						)
 					)
 				);
 			}
@@ -52846,7 +52855,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Raleway|Nunito+Sans|Lato:300,500,700,900|Open+Sans|Oswald);", ""]);
 
 	// module
-	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n\n.gym-class-table-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center; }\n\n.gym-class-table {\n  width: 80%;\n  padding: 0px;\n  display: flex;\n  text-align: center;\n  flex-wrap: wrap;\n  flex-direction: row;\n  align-content: center;\n  justify-content: center;\n  width: 80%;\n  margin: 40px 20px 20px 20px; }\n  .gym-class-table.classic {\n    font-family: \"Courier\"; }\n  .gym-class-table.hidden {\n    visibility: hidden; }\n  .gym-class-table .table {\n    width: 100%; }\n\n.gym-class-table-row {\n  display: flex;\n  flex-direction: row;\n  width: 100%; }\n  .gym-class-table-row:nth-of-type(even) {\n    background-color: rgba(188, 188, 188, 0.1); }\n\n.gym-class-table-cell {\n  font-size: 15px;\n  width: 20%;\n  box-sizing: border-box;\n  flex-grow: 1;\n  padding: 10px 15px;\n  overflow: hidden;\n  list-style: none; }\n  .gym-class-table-cell.header {\n    font-family: \"Lato\";\n    font-weight: 500;\n    font-size: 16px;\n    padding: 15px 15px;\n    text-transform: uppercase;\n    color: #5bc0eb; }\n", ""]);
+	exports.push([module.id, "html {\n  height: 100%; }\n\nbody {\n  font-family: 'Lato', sans-serif;\n  margin: 0px;\n  height: 100%; }\n\n.title {\n  display: flex;\n  align-content: center;\n  flex-direction: row;\n  width: 100%;\n  justify-content: center;\n  margin: 60px 0px 20px 0px; }\n  @media all and (max-device-width: 670px) {\n    .title {\n      margin-top: 100px; } }\n\n.logo {\n  height: 60px;\n  width: 60px;\n  padding-right: 20px;\n  align-self: center; }\n  @media all and (max-device-width: 670px) {\n    .logo {\n      height: 140px;\n      width: 140px; } }\n\n.container {\n  display: flex;\n  width: 100%;\n  margin: 0px;\n  justify-content: center;\n  flex-direction: column;\n  align-content: center;\n  padding: 0px; }\n  .container h1 {\n    font-weight: 100;\n    align-self: center; }\n    @media all and (max-device-width: 670px) {\n      .container h1 {\n        font-size: 84px; } }\n\n.gym-class-table-wrapper {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-content: center;\n  flex-direction: column; }\n\n.hidden {\n  display: none; }\n\n.gym-class-table {\n  width: 80%;\n  padding: 0px;\n  display: flex;\n  align-self: center;\n  text-align: center;\n  flex-wrap: wrap;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  margin: 40px 20px 20px 20px; }\n  .gym-class-table.classic {\n    font-family: \"Courier\"; }\n  @media all and (max-device-width: 670px) {\n    .gym-class-table {\n      width: 100%;\n      margin: 60px 0px; } }\n\n.gym-class-table-row {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n  width: 100%; }\n  .gym-class-table-row.header {\n    font-family: \"Lato\";\n    font-weight: 500;\n    font-size: 16px;\n    padding: 10px 0px;\n    text-transform: uppercase;\n    color: #5bc0eb; }\n  .gym-class-table-row:nth-of-type(even) {\n    background-color: rgba(188, 188, 188, 0.1); }\n  @media all and (max-device-width: 670px) {\n    .gym-class-table-row {\n      flex-flow: row; } }\n\n.gym-class-table-cell {\n  font-size: 15px;\n  width: 20%;\n  box-sizing: border-box;\n  flex-grow: 1;\n  padding: 10px 15px;\n  overflow: hidden;\n  list-style: none; }\n  @media all and (max-device-width: 670px) {\n    .gym-class-table-cell {\n      width: 100%;\n      font-size: 36px;\n      padding: 20px 15px; } }\n\n.no-class-text-container {\n  display: flex;\n  width: 100%;\n  justify-content: center; }\n\n.no-class-text {\n  font-size: 24px;\n  color: #bcbcbc; }\n  @media all and (max-device-width: 670px) {\n    .no-class-text {\n      font-size: 64px; } }\n", ""]);
 
 	// exports
 

@@ -1,72 +1,52 @@
 @import '../app.scss';
 
-.search-bar-field {
-}
-
-
 .search-bar-wrapper {
-  font-family: "Lato";
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-self: center;
-  padding-top: 20px;
-  height: 36px;
-  width: 100%;
-    -webkit-transition: width 0.3s ease-in-out;
-    -moz-transition: width 0.3s ease-in-out;
-    -o-transition: width 0.3s ease-in-out;
-    transition: width 0.3s ease-in-out;
-  &.classic {
-    -webkit-transition: width 0.3s linear;
-    -moz-transition: width 0.3s linear;
-    -o-transition: width 0.3s linear;
-    transition: width 0.3s linear;
-
-  }
+    font-family: "Lato";
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    padding-top: 20px;
+    height: 36px;
+    width: 100%;
+    @media all and (max-device-width: $breakpoint) {
+       height: 84px;
+       padding-top: 0px;
+    }
 }
 
 .search-bar-input {
-  font-family: "Lato";
-  outline: none;
-  font-size: 16px;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(188,188,188,0.5);
-  border-bottom: 1px solid rgba(188,188,188,0.5);
-  border-left: 1px solid rgba(188,188,188,0.5);
-  border-right: 0px;
-  border-radius: 0px;
-  position: relative;
-  margin: 0;
-  padding-left: 10px;
-  width: 30%;
-  -webkit-transition: width 0.3s ease-in-out;
-  -moz-transition: width 0.3s ease-in-out;
-  -o-transition: width 0.3s ease-in-out;
-  transition: width 0.3s ease-in-out;
-  &.classic {
-    font-family: "Courier";
-    font-size: 14px;
-    color: #000;
-    border: 1px solid #000;
-    border-radius: 5px;
-    -webkit-transition: width 0.3s linear;
-    -moz-transition: width 0.3s linear;
-    -o-transition: width 0.3s linear;
-    transition: width 0.3s linear;
-  }
+    outline: none;
+    -webkit-appearance: none;
+    font-family: "Lato";
+    font-size: 16px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(188, 188, 188, 0.5);
+    border-bottom: 1px solid rgba(188, 188, 188, 0.5);
+    border-left: 1px solid rgba(188, 188, 188, 0.5);
+    border-right: 0px;
+    border-radius: 0px;
+    margin: 0;
+    padding-left: 10px;
+    width: 30%;
+    @media all and (max-device-width: $breakpoint) {
+        width: 80%;
+        font-size: 50px;
+    }
 }
-
 
 .search {
-  height: 24px;
-  width: 30px;
-  padding: 5px 0px 5px 0px;
-  border-right: 1px solid rgba(188,188,188,0.5);
-  border-top: 1px solid rgba(188,188,188,0.5);
-  border-bottom: 1px solid rgba(188,188,188,0.5);
-  border-left: 0px;
-  border-radius: 0px;
+  outline: none;
+    height: 24px;
+    width: 30px;
+    padding: 5px 0px 5px 0px;
+    border-right: 1px solid rgba(188, 188, 188, 0.5);
+    border-top: 1px solid rgba(188, 188, 188, 0.5);
+    border-bottom: 1px solid rgba(188, 188, 188, 0.5);
+    border-left: 0px;
+    border-radius: 0px;
+     @media all and (max-device-width: $breakpoint) {
+        height: 72px;
+        width: 74px;
+    }
 }
-
-

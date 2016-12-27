@@ -16,7 +16,7 @@ class GymSearch extends Component {
 		}
 		this.onChange = this.onChange.bind(this)
 		this.onKeyDown = this.onKeyDown.bind(this)
-		this.search = _.debounce(this.props.onSearch, 250)
+		this.search = _.debounce(this.props.onSearch, 350)
 		this.search = this.search.bind(this)
 		this.normaliseInput = this.normaliseInput.bind(this)
 }

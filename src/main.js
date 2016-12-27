@@ -25,6 +25,7 @@ class App extends Component {
             function (response) {
                 return response.json();
             }).then(function (res) {
+                console.log(res)
                 this.setState({ classes: res })
             }.bind(this));
     }

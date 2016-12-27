@@ -19,6 +19,13 @@ class GymClassTable extends Component {
 
 	render() {
 		var rows = [];
+		var spacer;
+		var dayFormat = "dddd"
+		var width  = window.innerWidth || documentElement.clientWidth || body.clientWidth;
+		if (width < 1000) {
+			dayFormat = "ddd"
+			spacer = <br/>
+		}
 		if (this.props.gymclass != null) {
 			this.props.gymclass.forEach(function (gymclass, index) {
 				rows.push(
@@ -28,24 +35,25 @@ class GymClassTable extends Component {
 						<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic })}>
 							{gymclass.location}</div>
 						<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic })}>
-							{moment(gymclass.startdatetime).format("dddd h:mm a")} </div>
-						<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic })}>
-							{moment.duration(moment(gymclass.enddatetime).diff(moment(gymclass.startdatetime))).asMinutes()} minutes </div>
+							{moment(gymclass.startdatetime).format(dayFormat)} {spacer}
+							{moment(gymclass.startdatetime).format("h:mm a")} </div>
 					</div>
 				)
 			}.bind(this))
 		}
 		return (
 			<div className="gym-class-table-wrapper">
-			<div className={classNames('gym-class-table', { 'classic': this.props.classic }, { 'hidden': !this.props.gymclass })}>
-				<div className={'gym-class-table-row'}>
-					<div className={classNames('gym-class-table-cell', 'header', { 'classic': this.props.classic })}>Gym</div>
-					<div className={classNames('gym-class-table-cell', 'header', { 'classic': this.props.classic })}>Class</div>
-					<div className={classNames('gym-class-table-cell', 'header', { 'classic': this.props.classic })}>Location</div>
-					<div className={classNames('gym-class-table-cell', 'header', { 'classic': this.props.classic })}>Start Time</div>
-					<div className={classNames('gym-class-table-cell', 'header', { 'classic': this.props.classic })}>Duration</div>
+			<div className={classNames('gym-class-table', { 'classic': this.props.classic })}>
+				<div className={classNames('gym-class-table-row header', { 'hidden': (this.props.gymclass == null) || (this.props.gymclass.length == 0) })}>
+					<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': (this.props.gymclass == null) || (this.props.gymclass.length == 0)})}>Gym</div>
+					<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': (this.props.gymclass == null) || (this.props.gymclass.length == 0)})}>Class</div>
+					<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': (this.props.gymclass == null) || (this.props.gymclass.length == 0)})}>Location</div>
+					<div className={classNames('gym-class-table-cell', { 'classic': this.props.classic }, { 'hidden': (this.props.gymclass == null) || (this.props.gymclass.length == 0)})}>Start Time</div>
 				</div>
 				{rows}
+			</div>
+			<div className={classNames('no-class-text-container', {'hidden': (this.props.gymclass == null) || (this.props.gymclass != null && this.props.gymclass.length > 0) })}>
+				<p className={classNames('no-class-text', {'hidden': (this.props.gymclass == null) || (this.props.gymclass != null && this.props.gymclass.length > 0) })}> No classes found ☹️ </p>
 			</div>
 			</div>
 		);

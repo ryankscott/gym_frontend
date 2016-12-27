@@ -27,9 +27,9 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot",
-    "build": "GYMCLASS_URL=/gym webpack --build --progress --colors",
-    "dev": "GYMCLASS_URL=localhost:9000 npm start"
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot --config webpack.config.dev.js",
+    "build": "GYMCLASS_URL=/gym webpack --build --progress --colors --config webpack.config.prod.js",
+    "dev": "GYMCLASS_URL=http://localhost:9000 npm start"
   },
   "repository": {
     "type": "git",
