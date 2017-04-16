@@ -4,14 +4,22 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "auth0-lock": "^10.14.0",
+    "auth0-lock-passwordless": "^2.2.3",
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
+    "chart.js": "^2.5.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
+    "jwt-decode": "^2.1.0",
     "lodash": "^4.13.1",
-    "moment": "^2.14.1",
+    "moment": "^2.17.1",
     "react": "^15.2.1",
+    "react-chartjs-2": "^2.0.5",
     "react-dom": "^15.2.1",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-s-alert": "^1.2.2",
     "react-widgets": "^3.4.1",
     "style-loader": "^0.13.1",
     "whatwg-fetch": "^1.0.0"
@@ -22,14 +30,14 @@
     "file-loader": "^0.9.0",
     "image-webpack-loader": "^3.1.0",
     "jsx-loader": "^0.13.2",
-    "node-sass": "^3.14.0-0",
+    "node-sass": "^4.1.1",
     "sass-loader": "^4.0.0",
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot --config webpack.config.dev.js",
-    "build": "GYMCLASS_URL=/gym webpack --build --progress --colors --config webpack.config.prod.js",
-    "dev": "GYMCLASS_URL=http://localhost:9000 npm start"
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --hot --inline --colors --progress --history-api-fallback --config webpack.config.dev.js",
+    "build": "GYMCLASS_URL=/gym GYMCLASS_REDIRECT_URL=https://ryankscott.com webpack -p --build --progress --colors --config webpack.config.dev.js",
+    "dev": "GYMCLASS_URL=http://localhost:9000 GYMCLASS_REDIRECT_URL=http://localhost:8080 npm start"
   },
   "repository": {
     "type": "git",

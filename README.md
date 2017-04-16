@@ -1,3 +1,3 @@
-# gym_frontend
+# Gym Tracker
 
-gym_frontend is a React app for viewing gym classes. 
+Gym Tracker is a web app for searcing for, saving and tracking of your gym going.  
