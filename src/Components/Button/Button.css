@@ -1,0 +1,84 @@
+@import "../../variables.css";
+.icon {
+  position: relative;
+  left: 0px;
+  height: 60%;
+  margin-right: 5px;
+}
+
+.label {
+  font-family: var(--font-family-sans-serif);
+  font-weight: 100;
+  position: relative;
+  margin: auto;
+}
+
+.button {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px 5px 0px 5px;
+  cursor: pointer;
+  color: var(--colour-white);
+  background-color: var(--colour-blue);
+  border: 1px solid var(--colour-blue);
+  text-transform: uppercase;
+  border-radius: 5px;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--colour-white) !important;
+  color: var(--colour-blue) !important;
+}
+
+.inverted {
+  composes: button;
+  background-color: var(--colour-white) !important;
+  color: var(--colour-blue) !important;
+}
+
+.inverted:hover {
+  background-color: var(--colour-blue) !important;
+  color: var(--colour-white) !important;
+}
+
+.large {
+  composes: button;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.medium {
+  composes: button;
+  width: 75px !important;
+  height: 30px !important;
+  margin: 5px !important;
+  line-height: 30px !important;
+  font-size: 12px !important;
+}
+
+.small {
+  composes: button;
+  width: 60px !important;
+  height: 25px !important;
+  margin: 2px !important;
+  line-height: 25px !important;
+  font-size: 12px !important;
+}
+
+.full {
+  composes: button;
+  width: calc(100% - 20px) !important;
+  height: 35px !important;
+  margin: 10px 10px 10px 10px !important;
+  line-height: 35px !important;
+  font-size: 14px !important;
+}

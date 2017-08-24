@@ -1,59 +1,133 @@
+const path = require("path");
 const webpack = require("webpack");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+const BabiliWebpackPlugin = require("babili-webpack-plugin");
+const ROOT_PATH = path.resolve(__dirname);
+const PORT = 8080;
 
-module.exports = {
-  entry: "./src/index.js",
-  output: {
-    publicPath: "/gym/build/",
-    path: "./build/",
-    filename: "main.js"
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      __GYMCLASS_URL__: JSON.stringify(process.env.GYMCLASS_URL) ||
-        JSON.stringify(""),
-      __GYMCLASS_REDIRECT_URL__: JSON.stringify(
-        process.env.GYMCLASS_REDIRECT_URL
-      ) || JSON.stringify(""),
-      "process.env.NODE_ENV": JSON.stringify(
-        process.env.NODE_ENV || "production"
-      )
-    })
+module.exports = () => ({
+  context: ROOT_PATH,
+
+  entry: [
+    `webpack-dev-server/client?http://localhost:${PORT}`,
+    "webpack/hot/only-dev-server",
+    "babel-polyfill",
+    "./src/index.js"
   ],
 
+  devtool: "#cheap-source-map",
+
+  output: {
+    publicPath: "/",
+    path: ROOT_PATH,
+    filename: "build/main.js"
+  },
+
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
-        query: {
-          presets: ["es2015", "react"]
-        },
-        gifsicle: {
-          interlaced: false
-        },
-        optipng: {
-          optimizationLevel: 7
-        },
-        pngquant: {
-          quality: "75-90",
-          speed: 3
-        }
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true
+            }
+          }
+        ]
       },
       {
-        test: /(\.scss|\.css)$/,
-        loaders: ["style", "css", "sass"]
+        test: /\.css$/,
+        exclude: /(normalize.css|alert.css|alert-stackslide.css)/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+              minimize: false,
+              camelCase: true,
+              modules: true,
+              importLoaders: 1,
+              localIdentName: "[name]__[local]--[hash:base64:5]"
+            }
+          },
+          {
+            loader: "postcss-loader"
+          }
+        ]
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          "file?hash=sha512&digest=hex&name=/img/[hash].[ext]",
-          "image-webpack"
+        test: /\.css$/,
+        include: /(normalize.css|alert.css|alert-stackslide.css)/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       }
     ]
   },
-  sassLoader: {
-    includePaths: ["./node_modules"]
+
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false, // Suppress uglification warnings
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true
+      },
+      output: {
+        comments: false
+      },
+      mangle: true
+    }),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new HTMLWebpackPlugin({
+      inject: false,
+      template: path.resolve(ROOT_PATH, "index.html"),
+      showErrors: true
+    }),
+    new webpack.DefinePlugin({
+      __GYMCLASS_URL__: JSON.stringify("http://ryankscott.com:9000"),
+      __GYMCLASS_REDIRECT_URL__: JSON.stringify("http://ryankscott.com:8080"),
+      "process.env.NODE_ENV": '"production"'
+    }),
+    new BabiliWebpackPlugin(
+      {
+        deadcode: false,
+        mangle: { topLevel: true },
+        removeConsole: true
+      },
+      {
+        test: /\.js$/
+      }
+    ),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "main",
+      children: false,
+      minChunk: 2
+    }),
+    new webpack.optimize.MinChunkSizePlugin({
+      minChunkSize: 51200 // ~50kb
+    })
+  ],
+
+  devServer: {
+    stats: "minimal",
+    hot: true,
+    publicPath: "/",
+    port: PORT,
+    host: "localhost",
+    historyApiFallback: true,
+    noInfo: false
   }
-};
+});

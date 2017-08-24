@@ -1,0 +1,16 @@
+@import "../../variables.css";
+
+
+.add{
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 0.2s;
+}
+
+
+.remove{
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transform: rotate(45deg);
+}

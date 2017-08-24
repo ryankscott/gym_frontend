@@ -1,0 +1,103 @@
+@import "../../variables.css";
+.tableWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.table {
+    font-family: var(--font-family-sans-serif);
+    color: var(--colour-grey-dark-3);
+    font-weight: 100;
+    width: 80%;
+    padding: 0px;
+    display: flex;
+    align-self: center;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin: 20px;
+    @media (--media-phone-width) {
+        width: 100%;
+        margin: 20px 0px;
+    }
+}
+
+.tableRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    @media (--media-phone-width) {
+        flex-flow: row;
+    }
+}
+
+.tableRow:nth-of-type(even) {
+    background-color: var(--colour-grey-light-8);
+}
+
+.tableRowHeader {
+    composes: tableRow;
+    font-family: var(--font-family-sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 0px;
+    text-transform: uppercase;
+    color: var(--colour-blue);
+    @media (--media-phone-width) {
+        font-size: 14px;
+        padding: 0px 0px;
+    }
+}
+
+.tableCell {
+    font-size: 15px;
+    width: 20%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 10px 15px;
+    overflow: hidden;
+    list-style: none;
+    @media (--media-phone-width) {
+        width: 100%;
+        padding: 15px 2px;
+        font-size: 14px;
+    }
+}
+
+.tableCellAction {
+    flex: 0 0 auto;
+    min-width: 28px;
+    padding: 10px 10px 10px 0px;
+    overflow: hidden;
+    list-style: none;
+    @media (--media-phone-width) {
+        padding: 0px 5px 0px 0px;
+    }
+}
+
+.noClassTextContainer {
+    display: flex;
+    align-items:center;
+
+    width: 100%;
+    justify-content: center;
+}
+
+.noClassText {
+    font-family: var(--font-family-sans-serif);
+    font-size: 18px;
+    color: var(--colour-grey);
+    font-weight: 100;
+}
+
+
+.hidden {
+    display: none;
+}

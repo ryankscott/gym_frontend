@@ -1,0 +1,40 @@
+@import "../../variables.css";
+.header {
+    font-family: var(--font-family-sans-serif);
+    font-size: 32px;
+    font-weight: 300;
+    align-self: center;
+    padding-bottom: 20px;
+    margin: 120px 0px 20px 0px;
+    @media (width < var(--media-phone-width)) {
+        font-size: 32px;
+        padding-bottom: 10px;
+        margin: 40px 0px 10px 0px;
+    }
+}
+
+.title {
+    font-family: var(--font-family-sans-serif);
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    @media (width < var(--media-phone-width)) {
+        padding-bottom: 5px;
+    }
+}
+
+.logo {
+    height: 60px;
+    width: 60px;
+    margin-top: 80px;
+    margin-right: 10px;
+    align-self: center;
+    @media (width < var(--media-phone-width)) {
+        height: 50px;
+        width: 50px;
+        margin-top: 20px;
+    }
+}

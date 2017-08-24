@@ -1,0 +1,40 @@
+@import "../../variables.css";
+.suggestions {
+    font-family: var(--font-family-sans-serif);
+    font-weight: 100;
+    box-sizing: border-box;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    font-size: 16px;
+    align-self: center;
+    justify-content: center;
+    width: 30%;
+  @media (--media-phone-width) {
+    width: 80%;
+  }
+}
+
+.suggestionListItem {
+    font-weight: 100;
+    cursor: default;
+    color: var(--colour-grey-dark-4);
+    background-color: var(--colour-grey-light-10);
+    padding: 5px 0px 5px 10px;
+    border-left: 0px solid var(--colour-grey);
+    border-bottom: 1px solid var(--colour-grey-light-6);
+}
+
+.suggestionListItem:last-of-type {
+    border-bottom: 1px solid var(--colour-grey-light-6);
+}
+
+.highlighted {
+    composes: suggestionListItem;
+    background-color: var(--colour-grey-light-8);
+}
+
+.hidden {
+    display: none;
+}

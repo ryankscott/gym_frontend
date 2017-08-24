@@ -1,0 +1,12 @@
+@import "../../variables.css";
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.h2 {
+  composes: header-2 from "../../typography.css";
+}

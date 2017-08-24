@@ -1,0 +1,19 @@
+@import "../../variables.css";
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.h2 {
+    composes: header-2 from "../../typography.css";
+    margin-top: 60px;
+}
+
+.hidden {
+    display: none;
+}

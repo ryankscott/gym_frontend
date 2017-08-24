@@ -1,0 +1,60 @@
+@import './variables.css';
+.normalText {
+    font-family: var(--font-family-sans-serif);
+    color: var(--colour-grey-dark-3);
+    font-weight: 100;
+    font-size: 14px;
+}
+
+.header-1 {
+    font-family: var(--font-family-sans-serif);
+    color: var(--colour-grey-dark-3);
+    font-size: 32px;
+    font-weight: 300;
+    align-self: center;
+    padding-bottom: 20px;
+    margin: 60px 0px 20px 0px;
+    @media (--media-phone-width) {
+        font-size: 32px;
+        padding-bottom: 10px;
+        margin: 40px 0px 10px 0px;
+    }
+}
+
+.header-2 {
+    composes: header-1;
+    font-size: 24px;
+    padding-bottom: 10px;
+    margin: 40px 0px 10px 0px;
+    @media (--media-phone-width) {
+        font-size: 24px;
+        padding-bottom: 5px;
+        margin: 30px 0px 5px 0px;
+    }
+}
+
+.header-3 {
+    composes: header-1;
+    font-size: 18px;
+    font-weight: 300;
+    padding-bottom: 5px;
+    margin: 20px 0px 5px 0px;
+    @media (--media-phone-width) {
+        font-size: 18px;
+        padding-bottom: 0px;
+        margin: 20px 0px 0px 0px;
+    }
+}
+
+.header-4 {
+    composes: header-1;
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 5px;
+    margin: 10px 0px 5px 0px;
+    @media (--media-phone-width) {
+        font-size: 18px;
+        padding-bottom: 0px;
+        margin: 20px 0px 0px 0px;
+    }
+}
