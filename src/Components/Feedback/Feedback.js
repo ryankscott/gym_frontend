@@ -171,7 +171,7 @@ class Feedback extends Component {
           })}
         >
           <div className={styles.header}>
-            <div className={styles.icon} onClick={this.toggleDialog}>
+            <div className={styles.headerIcon} onClick={this.toggleDialog}>
               <svg
                 fill="#000000"
                 height="18"

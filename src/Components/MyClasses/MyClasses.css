@@ -11,3 +11,18 @@
 .h2 {
     composes: header-2 from "../../typography.css"; 
 }
+
+.radioGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 80%;
+    margin: 10px 0px;
+    font-family: var(--font-family-sans-serif);
+}
+
+.radio {
+
+    margin: 0px 10px;
+}

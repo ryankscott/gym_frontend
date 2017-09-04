@@ -77,7 +77,12 @@ const Button = ({
         handleClick();
       }}
     >
-      <div className={styles.icon}>
+      <div
+        className={classNames({
+          [styles.icon]: true,
+          [styles.hidden]: !i
+        })}
+      >
         {i}
       </div>
       <div className={styles.label}>

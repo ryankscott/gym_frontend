@@ -39,7 +39,7 @@ module.exports = () => ({
       },
       {
         test: /\.css$/,
-        exclude: /(normalize.css|alert.css|alert-stackslide.css)/,
+        exclude: /(normalize.css|alert.css|alert-stackslide.css|calendar.css)/,
         use: [
           { loader: "style-loader" },
           {
@@ -60,7 +60,7 @@ module.exports = () => ({
       },
       {
         test: /\.css$/,
-        include: /(normalize.css|alert.css|alert-stackslide.css)/,
+        include: /(normalize.css|alert.css|alert-stackslide.css|calendar.css)/,
         use: [
           { loader: "style-loader" },
           {
@@ -97,8 +97,8 @@ module.exports = () => ({
       showErrors: true
     }),
     new webpack.DefinePlugin({
-      __GYMCLASS_URL__: JSON.stringify("http://ryankscott.com:9000"),
-      __GYMCLASS_REDIRECT_URL__: JSON.stringify("http://ryankscott.com:8080"),
+      __GYMCLASS_URL__: JSON.stringify(""),
+      __GYMCLASS_REDIRECT_URL__: JSON.stringify("https://ryankscott.com"),
       "process.env.NODE_ENV": '"production"'
     }),
     new BabiliWebpackPlugin(

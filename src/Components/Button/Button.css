@@ -82,3 +82,6 @@
   line-height: 35px !important;
   font-size: 14px !important;
 }
+.hidden {
+    display: none;
+}

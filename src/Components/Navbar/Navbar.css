@@ -1,7 +1,7 @@
 @import "../../variables.css";
 .navbar {
   position: fixed;
-  z-index: 10;
+  z-index: 99;
   top: 0px;
   left: 0px;
   margin: 0px;
@@ -17,6 +17,7 @@
 }
 
 .product {
+  z-index: 99;
   flex: 0 0 auto;
   display: flex;
   flex-direction: row;
@@ -30,6 +31,7 @@
 }
 
 .productName {
+  z-index: 99;
   font-family: var(--font-family-sans-serif);
   font-size: 24px;
   font-weight: 300;
@@ -40,6 +42,7 @@
 }
 
 .productIcon {
+  z-index: 99;
   height: 50px;
   width: 50px;
   margin: 0px 5px;
@@ -51,6 +54,7 @@
 }
 
 .menu {
+  z-index: 99;
   height: 100%;
   flex: 1 1 auto;
   padding: 0px 20px;
@@ -63,6 +67,7 @@
 }
 
 .menuOption {
+  z-index: 99;
   font-family: var(--font-family-sans-serif);
   font-weight: 300;
   font-size: 16px;

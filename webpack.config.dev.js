@@ -39,7 +39,7 @@ module.exports = () => ({
       },
       {
         test: /\.css$/,
-        exclude: /(normalize.css|alert.css|alert-stackslide.css)/,
+        exclude: /(normalize.css|alert.css|alert-stackslide.css|calendar.css)/,
         use: [
           { loader: "style-loader" },
           {
@@ -60,7 +60,7 @@ module.exports = () => ({
       },
       {
         test: /\.css$/,
-        include: /(normalize.css|alert.css|alert-stackslide.css)/,
+        include: /(normalize.css|alert.css|alert-stackslide.css|calendar.css)/,
         use: [
           { loader: "style-loader" },
           {

@@ -60,10 +60,19 @@
 
 .icon {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.headerIcon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    margin-right: 2px;
 }
 
 .content {
